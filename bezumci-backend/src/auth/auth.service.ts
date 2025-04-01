@@ -1,5 +1,6 @@
 // Import delle dipendenze necessarie da NestJS
 import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Caesar } from 'caesar-salad';
 
 // Import dei servizi esterni
 import { DatabaseService } from 'src/database/database.service';
@@ -34,7 +35,7 @@ export class AuthService {
       throw new UnauthorizedException('Пошел нахуй черт');
     }
 
-    if (user.password !== password) {
+    if (password !== Caesar.Decipher(12).crypt(user.password)) {
       throw new UnauthorizedException(
         `Твой пароль хуйня, держи правильный: ${user.password}`,
       );

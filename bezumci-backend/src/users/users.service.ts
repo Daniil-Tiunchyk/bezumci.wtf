@@ -1,4 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { Caesar } from 'caesar-salad';
+
 import { DatabaseService } from 'src/database/database.service';
 
 /**
@@ -39,6 +41,9 @@ export class UsersService {
    * @returns Utente creato
    */
   async addUser(userData: any) {
+    if (userData.password) {
+      userData.password = Caesar.Cipher(12).crypt(userData.password);
+    }
     return await this.db.insertData('users', userData);
   }
 
@@ -49,6 +54,9 @@ export class UsersService {
    * @returns Utente aggiornato
    */
   async updateUser(id: number, userData: any) {
+    if (userData.password) {
+      userData.password = Caesar.Cipher(12).crypt(userData.password);
+    }
     return await this.db.updateData('users', id, userData);
   }
 
