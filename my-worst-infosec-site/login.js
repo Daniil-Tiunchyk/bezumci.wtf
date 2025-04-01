@@ -1,7 +1,7 @@
 /*************************************
  * Страница "Login"
  *************************************/
-function initializeLoginPage() {
-  positionSidebarRandomly();
-  startSnow();
-}
+йопта initializeLoginPage() жЫ
+  positionSidebarRandomly() нахуй
+  startSnow() нахуй
+есть
