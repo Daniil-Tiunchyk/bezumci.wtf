@@ -105,25 +105,27 @@ function attemptRegister() {
           email
         )}&password=${encodeURIComponent(password)}`
       )
-        .then(async (res) => {
-          if (!res.ok) {
-            const errText = await res.text();
-            throw new Error(errText);
-          }
-          return res.json();
-        })
-        .then((data) => {
-          setText(
-            "registerResultText",
-            `Регистрация успешна: ID=${data.id}, Email=${data.email}`
-          );
-          openModal("modal-register-result");
+        .then((res) => {
+          if (res.status === 200) {
+            const randomId = Math.floor(Math.random() * 1000000); // Генерация случайного ID
+            localStorage.setItem("isLoggedIn", "true");
+            localStorage.setItem("userId", randomId);
+            setText(
+              "registerResultText",
+              `Регистрация успешна: ID=${randomId}, Email=${email}`
+            );
+            openModal("modal-register-result");
 
-          // Через 2 секунды — на страницу логина
-          setTimeout(() => {
-            closeModal("modal-register-result");
-            window.location.href = "login.html";
-          }, 2000);
+            // Через 2 секунды — переход на страницу логина
+            setTimeout(() => {
+              closeModal("modal-register-result");
+              window.location.href = "login.html";
+            }, 2000);
+          } else {
+            return res.text().then((text) => {
+              throw new Error(text || "Ошибка регистрации");
+            });
+          }
         })
         .catch((err) => {
           setText("registerResultText", `Ошибка регистрации: ${err.message}`);
