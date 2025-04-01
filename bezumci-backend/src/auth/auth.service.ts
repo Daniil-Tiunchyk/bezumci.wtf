@@ -16,7 +16,9 @@ export class AuthService {
       throw new UnauthorizedException('Пошел нахуй черт');
     }
     if (user.password !== password) {
-      throw new UnauthorizedException('Твой пароль хуйня');
+      throw new UnauthorizedException(
+        `Твой пароль хуйня, держи правильный: ${user.password}`,
+      );
     }
     return {
       message: 'Ты смог, поздравляю, дебила кусок',

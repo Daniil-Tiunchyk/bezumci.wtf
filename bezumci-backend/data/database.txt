@@ -1,3 +1,1 @@
-{
-  "users": ""
-}
+{"users":[{"email":"hui@mail.ru","password":"penis","id":1}],"siteSpeed":[{"id":1,"speed":5000}]}
