@@ -18,43 +18,68 @@ function initializeWeatherPage() {
     }, 2000);
   } else {
     setupWeatherUI();
-    showUserTableFake(); // Псевдо-CRUD пользователей
+    showUserTable(); // Псевдо-CRUD пользователей
   }
 }
 
 /*************************************
- * Псевдо-CRUD пользователей (фейк)
+ * Работа с пользователями (User CRUD)
  *************************************/
-function downloadFakeDB() {
-  // В демо просто скачиваем фейковый JSON как .txt
-  const fakeUsers = [
-    { id: 1, name: "Alice", role: "admin" },
-    { id: 2, name: "Bob", role: "user" },
-    { id: 3, name: "Eve", role: "guest" },
-  ];
-  const jsonStr = JSON.stringify(fakeUsers, null, 2);
 
-  const blob = new Blob([jsonStr], { type: "text/plain" });
-  const link = document.createElement("a");
-  link.href = URL.createObjectURL(blob);
-  link.download = "fake_users_db.txt";
-  link.click();
-  URL.revokeObjectURL(link.href);
+/**
+ * Получает список пользователей с сервера и отображает их в элементе usersTable
+ */
+function showUserTable() {
+  fetch(`${BASE_URL}/polzovateli/vse-dannie`)
+    .then(async (res) => {
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(errText);
+      }
+      return res.json();
+    })
+    .then((data) => {
+      // Предполагаем, что сервер возвращает объект с массивом пользователей под ключом 'users'
+      const users = data.users || data;
+      const usersEl = document.getElementById("usersTable");
+      if (usersEl) {
+        usersEl.textContent = users
+          .map((u) => `#${u.id} | ${u.email} [${u.role || "user"}]`)
+          .join("\n");
+      }
+    })
+    .catch((err) => {
+      const usersEl = document.getElementById("usersTable");
+      if (usersEl) {
+        usersEl.textContent = "Ошибка получения пользователей: " + err.message;
+      }
+    });
 }
 
-function showUserTableFake() {
-  const fakeUsers = [
-    { id: 1, name: "Alice", role: "admin" },
-    { id: 2, name: "Bob", role: "user" },
-    { id: 3, name: "Eve", role: "guest" },
-  ];
-
-  const usersEl = document.getElementById("usersTable");
-  if (usersEl) {
-    usersEl.textContent = fakeUsers
-      .map((u) => `#${u.id} | ${u.name} [${u.role}]`)
-      .join("\n");
-  }
+/**
+ * Выгружает базу пользователей с сервера и предлагает скачать ее в виде txt-файла
+ */
+function downloadUsersDb() {
+  fetch(`${BASE_URL}/polzovateli/vse-dannie`)
+    .then(async (res) => {
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(errText);
+      }
+      return res.json();
+    })
+    .then((data) => {
+      const jsonStr = JSON.stringify(data, null, 2);
+      const blob = new Blob([jsonStr], { type: "text/plain" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "users_db.txt";
+      link.click();
+      URL.revokeObjectURL(link.href);
+    })
+    .catch((err) => {
+      alert("Ошибка выгрузки базы: " + err.message);
+    });
 }
 
 /*************************************
