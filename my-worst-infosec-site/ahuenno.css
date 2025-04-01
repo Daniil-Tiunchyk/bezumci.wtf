@@ -175,3 +175,77 @@
     100% { opacity: 1; }
   }
   
+  /* ЕБАНУТЫЕ МОДАЛКИ */
+.modal {
+    display: none; /* скрыта по умолчанию */
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-radial-gradient(circle, red, yellow, green, blue, purple);
+    opacity: 0.9;
+    animation: modal-glitch 0.1s infinite alternate;
+  }
+  
+  /* ГЛЮЧНАЯ ХУЙНЯ */
+  @keyframes modal-glitch {
+    0% { transform: translateX(-5px) rotate(-3deg); }
+    100% { transform: translateX(5px) rotate(3deg); }
+  }
+  
+  .modal-content {
+    background: repeating-linear-gradient(45deg, cyan, magenta, lime, red);
+    margin: 10% auto;
+    padding: 2rem;
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+    border: 10px solid hotpink;
+    box-shadow: 10px 10px 30px black;
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 5px 5px 10px white;
+    color: yellow;
+    animation: spin 2s infinite linear, blink 0.2s infinite alternate;
+  }
+  
+  /* ДИСКОТЕКА ТЕКСТА */
+  @keyframes blink {
+    0% { color: yellow; }
+    100% { color: red; }
+  }
+  
+  /* ЗАКРЫВАШКА */
+  .close {
+    color: white;
+    font-size: 3rem;
+    font-weight: bold;
+    position: absolute;
+    right: 1rem;
+    top: 0.5rem;
+    cursor: pointer;
+    text-shadow: 3px 3px 10px black;
+    animation: bounce 0.3s infinite alternate;
+  }
+  
+  /* КНОПКИ */
+  .modal-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 2rem;
+  }
+  
+  .modal-buttons button {
+    background: linear-gradient(90deg, black, red, blue, yellow);
+    color: white;
+    font-size: 2rem;
+    padding: 20px;
+    border: 5px solid hotpink;
+    cursor: pointer;
+    text-shadow: 5px 5px 10px black;
+    animation: pulse 0.3s infinite alternate, shake 0.1s infinite;
+  }
+  
