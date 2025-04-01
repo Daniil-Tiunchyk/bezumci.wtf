@@ -1,0 +1,119 @@
+/* СБРОС ВСЕГО НАХУЙ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Comic Sans MS", cursive, sans-serif; /* Потому что похуй */
+    text-transform: uppercase;
+    letter-spacing: 3px;
+  }
+  
+  /* ФОН ВСЕГО САЙТА */
+  body {
+    background: linear-gradient(45deg, red, lime, blue, yellow, pink, cyan);
+    animation: epilepsy 0.5s infinite alternate;
+  }
+  
+  /* БЛЕСТЯЩАЯ АНИМАЦИЯ */
+  @keyframes epilepsy {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+  }
+  
+  /* ГЛАВНАЯ ШАПКА */
+  header {
+    background: radial-gradient(circle, yellow, purple);
+    padding: 2rem;
+    text-align: center;
+    font-size: 3rem;
+    font-weight: bold;
+    text-shadow: 5px 5px 10px black;
+    border-bottom: 10px dotted white;
+  }
+  
+  /* САЙДБАР */
+  #sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 300px;
+    height: 100%;
+    background: repeating-linear-gradient(45deg, magenta, cyan 10px, yellow 20px);
+    border-right: 5px solid black;
+    padding: 20px;
+  }
+  
+  #sidebar a {
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    text-shadow: 3px 3px 5px black;
+  }
+  
+  /* ОСНОВНОЙ КОНТЕНТ */
+  main {
+    margin-left: 320px;
+    padding: 20px;
+    background: repeating-linear-gradient(-45deg, orange, lime 10px, purple 20px);
+    color: black;
+    font-size: 1.5rem;
+    text-shadow: 2px 2px 5px white;
+  }
+  
+  /* КНОПКИ */
+  button {
+    background: linear-gradient(90deg, red, blue);
+    color: white;
+    font-size: 2rem;
+    padding: 20px;
+    border: 5px dashed black;
+    cursor: pointer;
+    text-shadow: 3px 3px 5px black;
+    animation: spin 1s infinite linear;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* ФУТЕР */
+  footer {
+    background: radial-gradient(circle, cyan, pink);
+    text-align: center;
+    padding: 2rem;
+    font-size: 2rem;
+    font-weight: bold;
+    border-top: 10px dashed white;
+    text-shadow: 3px 3px 5px black;
+  }
+  
+  /* РЕКЛАМА Ozon */
+  .ad-content {
+    background: repeating-linear-gradient(45deg, yellow, red 10px, blue 20px);
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    border: 10px double black;
+    animation: epilepsy 0.3s infinite alternate;
+  }
+  
+  /* МОДАЛКИ */
+  .modal {
+    background: repeating-linear-gradient(-45deg, purple, cyan 10px, green 20px);
+    color: white;
+    font-size: 2rem;
+    text-shadow: 3px 3px 5px black;
+  }
+  
+  /* ЛЮТЫЕ АНИМАЦИИ */
+  @keyframes wiggle {
+    0% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+    100% { transform: rotate(-5deg); }
+  }
+  
+  h1, h2, h3, p {
+    animation: wiggle 0.1s infinite alternate;
+  }
+  
