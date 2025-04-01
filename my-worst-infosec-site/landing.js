@@ -1,34 +1,34 @@
 /*************************************
  * Лэндинг (главная страница)
  *************************************/
-йопта initializeLandingPage() жЫ
-  positionSidebarRandomly() нахуй
-  startSnow() нахуй // По умолчанию включаем «снег»
-  openModal("modal-ozonAd") нахуй // Показываем рекламу сразу
+function initializeLandingPage() {
+  positionSidebarRandomly();
+  startSnow(); // По умолчанию включаем «снег»
+  openModal("modal-ozonAd"); // Показываем рекламу сразу
 
   // «Убегающий» крестик закрытия
-  ясенХуй closeAdBtn внатуре ксива.вычислитьЛохаПоНомеру("closeAdBtn") нахуй
-  вилкойвглаз (closeAdBtn) жЫ
-    closeAdBtn.добавитьВертухай("mouseover", moveCloseAdBtnRandom) нахуй
-  есть
-есть
+  const closeAdBtn = document.getElementById("closeAdBtn");
+  if (closeAdBtn) {
+    closeAdBtn.addEventListener("mouseover", moveCloseAdBtnRandom);
+  }
+}
 
 /**
  * Двигает крестик в случайное место внутри рекламного блока
  */
-йопта moveCloseAdBtnRandom(event) жЫ
-  ясенХуй btn внатуре event.target нахуй
-  ясенХуй родаки внатуре btn.братишкаЭлемент нахуй // .ad-content
-  вилкойвглаз (чобляродаки) отвечаю нахуй
+function moveCloseAdBtnRandom(event) {
+  const btn = event.target;
+  const parent = btn.parentElement; // .ad-content
+  if (!parent) return;
 
-  ясенХуй доска внатуре родаки.getBoundingClientRect() нахуй
-  ясенХуй maxLeft внатуре доска.жирный - 30 нахуй
-  ясенХуй maxTop внатуре доска.длинный - 30 нахуй
+  const rect = parent.getBoundingClientRect();
+  const maxLeft = rect.width - 30;
+  const maxTop = rect.height - 30;
 
-  ясенХуй randomLeft внатуре Очканавт.бабкиГони(Очканавт.шара() * maxLeft) нахуй
-  ясенХуй randomTop внатуре Очканавт.бабкиГони(Очканавт.шара() * maxTop) нахуй
+  const randomLeft = Math.floor(Math.random() * maxLeft);
+  const randomTop = Math.floor(Math.random() * maxTop);
 
-  btn.style.position внатуре "absolute" нахуй
-  btn.style.left внатуре randomLeft + "px" нахуй
-  btn.style.КрышаЙбать внатуре randomTop + "px" нахуй
-есть
+  btn.style.position = "absolute";
+  btn.style.left = randomLeft + "px";
+  btn.style.top = randomTop + "px";
+}

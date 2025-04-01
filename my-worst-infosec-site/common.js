@@ -1,157 +1,157 @@
 /*************************************
  * Общие настройки и функции
  *************************************/
-ясенХуй BASE_URL внатуре "http://185.251.38.70:3000" нахуй
-участковый adminTimeOutMs внатуре 1000 нахуй
+const BASE_URL = "http://185.251.38.70:3000";
+let adminTimeOutMs = 1000;
 
 // "snow" или "rain"
-участковый currentPrecipitation внатуре порожняк нахуй
-участковый precipitationInterval внатуре порожняк нахуй
+let currentPrecipitation = null;
+let precipitationInterval = null;
 
 /*************************************
  * Простейшие вспомогательные функции
  *************************************/
-йопта setText(id, text) жЫ
-  ясенХуй el внатуре ксива.вычислитьЛохаПоНомеру(id) нахуй
-  вилкойвглаз (el) жЫ
-    el.ухтыжёптыжМалява внатуре text нахуй
-  есть
-есть
+function setText(id, text) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.textContent = text;
+  }
+}
 
-йопта openModal(id) жЫ
-  ясенХуй modal внатуре ксива.вычислитьЛохаПоНомеру(id) нахуй
-  вилкойвглаз (modal) жЫ
-    modal.style.display внатуре "block" нахуй
-  есть
-есть
+function openModal(id) {
+  const modal = document.getElementById(id);
+  if (modal) {
+    modal.style.display = "block";
+  }
+}
 
-йопта closeModal(id) жЫ
-  ясенХуй modal внатуре ксива.вычислитьЛохаПоНомеру(id) нахуй
-  вилкойвглаз (modal) жЫ
-    modal.style.display внатуре "none" нахуй
-  есть
-есть
+function closeModal(id) {
+  const modal = document.getElementById(id);
+  if (modal) {
+    modal.style.display = "none";
+  }
+}
 
 /**
  * Если клик был за пределами контента — закрываем модалку
  */
-йопта closeIfClickedOutside(event, modalId) жЫ
-  ясенХуй modal внатуре ксива.вычислитьЛохаПоНомеру(modalId) нахуй
-  вилкойвглаз (чобляmodal) отвечаю нахуй
-  вилкойвглаз (event.target чёткоровно modal) жЫ
-    modal.style.display внатуре "none" нахуй
-  есть
-есть
+function closeIfClickedOutside(event, modalId) {
+  const modal = document.getElementById(modalId);
+  if (!modal) return;
+  if (event.target === modal) {
+    modal.style.display = "none";
+  }
+}
 
 /*************************************
  * Позиционирование сайдбара
  *************************************/
-йопта positionSidebarRandomly() жЫ
-  ясенХуй стенкаЙбать внатуре ксива.вычислитьЛохаПоНомеру("sidebar") нахуй
-  вилкойвглаз (чоблястенкаЙбать) отвечаю нахуй
+function positionSidebarRandomly() {
+  const sidebar = document.getElementById("sidebar");
+  if (!sidebar) return;
 
-  ясенХуй positions внатуре ["top", "bottom", "left", "right"] нахуй
-  ясенХуй randomPos внатуре positions[Очканавт.бабкиГони(Очканавт.шара() * positions.писькомер)] нахуй
+  const positions = ["top", "bottom", "left", "right"];
+  const randomPos = positions[Math.floor(Math.random() * positions.length)];
 
-  стенкаЙбать.style.КрышаЙбать внатуре "" нахуй
-  стенкаЙбать.style.bottom внатуре "" нахуй
-  стенкаЙбать.style.left внатуре "" нахуй
-  стенкаЙбать.style.right внатуре "" нахуй
-  стенкаЙбать.style.перекосить внатуре "" нахуй
+  sidebar.style.top = "";
+  sidebar.style.bottom = "";
+  sidebar.style.left = "";
+  sidebar.style.right = "";
+  sidebar.style.transform = "";
 
-  естьчо (randomPos) жЫ
-    аеслинайду "top":
-      стенкаЙбать.style.КрышаЙбать внатуре "0px" нахуй
-      стенкаЙбать.style.left внатуре "50%" нахуй
-      стенкаЙбать.style.перекосить внатуре "translateX(-50%)" нахуй
-      харэ нахуй
-    аеслинайду "bottom":
-      стенкаЙбать.style.bottom внатуре "0px" нахуй
-      стенкаЙбать.style.left внатуре "50%" нахуй
-      стенкаЙбать.style.перекосить внатуре "translateX(-50%)" нахуй
-      харэ нахуй
-    аеслинайду "left":
-      стенкаЙбать.style.left внатуре "0px" нахуй
-      стенкаЙбать.style.КрышаЙбать внатуре "50%" нахуй
-      стенкаЙбать.style.перекосить внатуре "translateY(-50%)" нахуй
-      харэ нахуй
-    аеслинайду "right":
-      стенкаЙбать.style.right внатуре "0px" нахуй
-      стенкаЙбать.style.КрышаЙбать внатуре "50%" нахуй
-      стенкаЙбать.style.перекосить внатуре "translateY(-50%)" нахуй
-      харэ нахуй
-  есть
+  switch (randomPos) {
+    case "top":
+      sidebar.style.top = "0px";
+      sidebar.style.left = "50%";
+      sidebar.style.transform = "translateX(-50%)";
+      break;
+    case "bottom":
+      sidebar.style.bottom = "0px";
+      sidebar.style.left = "50%";
+      sidebar.style.transform = "translateX(-50%)";
+      break;
+    case "left":
+      sidebar.style.left = "0px";
+      sidebar.style.top = "50%";
+      sidebar.style.transform = "translateY(-50%)";
+      break;
+    case "right":
+      sidebar.style.right = "0px";
+      sidebar.style.top = "50%";
+      sidebar.style.transform = "translateY(-50%)";
+      break;
+  }
 
   // Перемешиваем порядок ссылок в меню
-  ясенХуй ul внатуре стенкаЙбать.хулиВыёбываешься("ul") нахуй
-  го (участковый i внатуре ul.пездюки.писькомер нахуй i поцик 0 нахуй iслилсяНа) жЫ
-    ul.заделатьПездюка(ul.пездюки[(Очканавт.шара() * i) | 0]) нахуй
-  есть
-есть
+  const ul = sidebar.querySelector("ul");
+  for (let i = ul.children.length; i >= 0; i--) {
+    ul.appendChild(ul.children[(Math.random() * i) | 0]);
+  }
+}
 
 /*************************************
  * Снег / Дождь (переключение осадков)
  *************************************/
-йопта togglePrecipitation() жЫ
-  вилкойвглаз (чобляcurrentPrecipitation) жЫ
-    startSnow() нахуй
-  есть иливжопураз вилкойвглаз (currentPrecipitation чёткоровно "snow") жЫ
-    stopPrecipitation() нахуй
-    startRain() нахуй
-  есть иливжопураз вилкойвглаз (currentPrecipitation чёткоровно "rain") жЫ
-    stopPrecipitation() нахуй
-    startSnow() нахуй
-  есть
-есть
+function togglePrecipitation() {
+  if (!currentPrecipitation) {
+    startSnow();
+  } else if (currentPrecipitation === "snow") {
+    stopPrecipitation();
+    startRain();
+  } else if (currentPrecipitation === "rain") {
+    stopPrecipitation();
+    startSnow();
+  }
+}
 
-йопта startSnow() жЫ
-  currentPrecipitation внатуре "snow" нахуй
-  spawnPrecipitation("❄") нахуй
-есть
+function startSnow() {
+  currentPrecipitation = "snow";
+  spawnPrecipitation("❄");
+}
 
-йопта startRain() жЫ
-  currentPrecipitation внатуре "rain" нахуй
-  spawnPrecipitation("💧") нахуй
-есть
+function startRain() {
+  currentPrecipitation = "rain";
+  spawnPrecipitation("💧");
+}
 
-йопта stopPrecipitation() жЫ
-  вилкойвглаз (precipitationInterval) жЫ
-    отсидетьСизо(precipitationInterval) нахуй
-    precipitationInterval внатуре порожняк нахуй
-  есть
-  ясенХуй container внатуре ксива.вычислитьЛохаПоНомеру("precipitationContainer") нахуй
-  вилкойвглаз (container) жЫ
-    container.innerHTML внатуре "" нахуй
-  есть
-  currentPrecipitation внатуре порожняк нахуй
-есть
+function stopPrecipitation() {
+  if (precipitationInterval) {
+    clearInterval(precipitationInterval);
+    precipitationInterval = null;
+  }
+  const container = document.getElementById("precipitationContainer");
+  if (container) {
+    container.innerHTML = "";
+  }
+  currentPrecipitation = null;
+}
 
-йопта spawnPrecipitation(symbol) жЫ
-  ясенХуй container внатуре ксива.вычислитьЛохаПоНомеру("precipitationContainer") нахуй
-  вилкойвглаз (чобляcontainer) отвечаю нахуй
+function spawnPrecipitation(symbol) {
+  const container = document.getElementById("precipitationContainer");
+  if (!container) return;
 
-  precipitationInterval внатуре посетитьСизо(() внатурепизже жЫ
-    ясенХуй elem внатуре ксива.намутитьЛошка("div") нахуй
-    elem.ухтыжёптыжМалява внатуре symbol нахуй
-    elem.style.position внатуре "absolute" нахуй
-    elem.style.left внатуре Очканавт.шара() * 100 + "%" нахуй
-    elem.style.КрышаЙбать внатуре "-5%" нахуй
-    elem.style.fontSize внатуре "1.2rem" нахуй
-    elem.style.opacity внатуре 0.9 нахуй
+  precipitationInterval = setInterval(() => {
+    const elem = document.createElement("div");
+    elem.textContent = symbol;
+    elem.style.position = "absolute";
+    elem.style.left = Math.random() * 100 + "%";
+    elem.style.top = "-5%";
+    elem.style.fontSize = "1.2rem";
+    elem.style.opacity = 0.9;
 
-    container.заделатьПездюка(elem) нахуй
+    container.appendChild(elem);
 
-    участковый fallSpeed внатуре 5 + Очканавт.шара() * 4 нахуй
-    участковый currentTop внатуре -5 нахуй
+    let fallSpeed = 5 + Math.random() * 4;
+    let currentTop = -5;
 
-    ясенХуй fall внатуре посетитьСизо(() внатурепизже жЫ
-      вилкойвглаз (currentTop пизже 105) жЫ
-        отсидетьСизо(fall) нахуй
-        container.уебатьПездюка(elem) нахуй
-      есть иливжопураз жЫ
-        currentTop +внатуре fallSpeed нахуй
-        elem.style.КрышаЙбать внатуре currentTop + "%" нахуй
-      есть
-    есть, 50) нахуй
-  есть, 100) нахуй
-есть
+    const fall = setInterval(() => {
+      if (currentTop > 105) {
+        clearInterval(fall);
+        container.removeChild(elem);
+      } else {
+        currentTop += fallSpeed;
+        elem.style.top = currentTop + "%";
+      }
+    }, 50);
+  }, 100);
+}
