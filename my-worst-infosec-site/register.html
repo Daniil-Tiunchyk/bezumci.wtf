@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Погодное приложение</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="script.js"></script>
+  </head>
+  <body onload="initializeWeatherPage()">
+    <!-- Сайдбар -->
+    <nav id="sidebar">
+      <ul>
+        <li><a href="index.html">Landing</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="register.html">Register</a></li>
+        <li><a href="weather.html">Weather</a></li>
+      </ul>
+    </nav>
+
+    <button id="toggleSnowButton" onclick="togglePrecipitation()">
+      Сменить статус снега
+    </button>
+
+    <header>
+      <h1>Погодное приложение</h1>
+    </header>
+
+    <main>
+      <section class="info-block">
+        <h2>Погода с сервера</h2>
+        <button onclick="fetchWeatherData()">Обновить погоду</button>
+        <pre id="weatherDataText">(Пока ничего)</pre>
+      </section>
+
+      <section class="info-block" id="crudBlock">
+        <h2>CRUD Пользователи (через /polzovateli/...)</h2>
+
+        <button onclick="loadAllUsers()">Загрузить всех пользователей</button>
+        <pre id="usersTable"></pre>
+
+        <h3>Добавить пользователя</h3>
+        <label>Email:</label> <input type="email" id="addUserEmail" />
+        <label>Пароль:</label> <input type="text" id="addUserPassword" />
+        <button onclick="addUser()">Добавить</button>
+
+        <h3>Изменить пользователя</h3>
+        <label>ID:</label> <input type="number" id="updateUserId" />
+        <label>Email:</label> <input type="email" id="updateUserEmail" />
+        <label>Пароль:</label> <input type="text" id="updateUserPassword" />
+        <button onclick="updateUser()">Изменить</button>
+
+        <h3>Удалить пользователя</h3>
+        <label>ID:</label> <input type="number" id="deleteUserId" />
+        <button onclick="deleteUser()">Удалить</button>
+
+        <br /><br />
+        <button onclick="downloadDbTxt()">Выгрузить БД (txt)</button>
+      </section>
+    </main>
+
+    <footer>
+      <p>© 2025 БЕЗУМ hack — Weather Page</p>
+    </footer>
+
+    <div id="precipitationContainer"></div>
+
+    <!-- Модалки -->
+    <div
+      class="modal"
+      id="modal-auth-required"
+      onclick="closeIfClickedOutside(event, 'modal-auth-required')"
+    >
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('modal-auth-required')"
+          >&times;</span
+        >
+        <h2>Доступ запрещён</h2>
+        <p>Вы не авторизованы! Пожалуйста, войдите в систему.</p>
+      </div>
+    </div>
+
+    <div
+      class="modal"
+      id="modal-noauth"
+      onclick="closeIfClickedOutside(event, 'modal-noauth')"
+    >
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('modal-noauth')">&times;</span>
+        <h2>Ошибка авторизации</h2>
+        <p id="noauthMsg"></p>
+      </div>
+    </div>
+  </body>
+</html>

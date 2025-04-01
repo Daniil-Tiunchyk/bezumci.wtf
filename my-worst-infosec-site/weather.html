@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Погодное приложение</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="script.js"></script>
+  </head>
+  <body onload="initializeWeatherPage()">
+    <!-- Сайдбар -->
+    <nav id="sidebar">
+      <ul>
+        <li><a href="index.html">Landing</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="register.html">Register</a></li>
+        <li><a href="weather.html">Weather</a></li>
+      </ul>
+    </nav>
+
+    <button id="toggleSnowButton" onclick="togglePrecipitation()">
+      Сменить статус снега
+    </button>
+
+    <header>
+      <h1>Погодное приложение</h1>
+    </header>
+
+    <main>
+      <section class="info-block" id="weatherBlock">
+        <h2>Случайный город</h2>
+        <p><strong>Текущий город:</strong> <span id="currentCity"></span></p>
+        <p><strong>Погода:</strong> <span id="currentWeather">???</span></p>
+        <img
+          id="weatherImage"
+          src=""
+          alt="Погода"
+          style="max-width: 200px; display: block; margin: 1rem 0"
+        />
+        <button onclick="startCityCheck()">Проверить город и погоду</button>
+      </section>
+
+      <section class="info-block" id="crudBlock">
+        <h2>CRUD Пользователи (фейк)</h2>
+        <p>Таблица пользователей:</p>
+        <pre id="usersTable"></pre>
+        <button onclick="downloadFakeDB()">Выгрузить базу (txt)</button>
+      </section>
+    </main>
+
+    <footer>
+      <p>© 2025 БЕЗУМ hack — Weather Page</p>
+    </footer>
+
+    <div id="precipitationContainer"></div>
+
+    <!-- Модалки -->
+    <div
+      class="modal"
+      id="modal-auth-required"
+      onclick="closeIfClickedOutside(event, 'modal-auth-required')"
+    >
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('modal-auth-required')"
+          >&times;</span
+        >
+        <h2>Доступ запрещён</h2>
+        <p>Вы не авторизованы! Пожалуйста, войдите в систему.</p>
+      </div>
+    </div>
+
+    <!-- Модалка: вопрос "Это ваш город?" -->
+    <div
+      class="modal"
+      id="modal-check-city"
+      onclick="closeIfClickedOutside(event, 'modal-check-city')"
+    >
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('modal-check-city')"
+          >&times;</span
+        >
+        <h2 id="cityQuestionText">Это ваш город?</h2>
+        <div class="modal-buttons">
+          <button id="cityYesBtn">Да</button>
+          <button id="cityNoBtn">Нет</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Модалка: упрёк во лжи -->
+    <div
+      class="modal"
+      id="modal-lie"
+      onclick="closeIfClickedOutside(event, 'modal-lie')"
+    >
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('modal-lie')">&times;</span>
+        <h2>Вы солгали!</h2>
+        <p>Не может быть, что это ваш город!</p>
+      </div>
+    </div>
+
+    <!-- Модалка: новый город -->
+    <div
+      class="modal"
+      id="modal-new-city"
+      onclick="closeIfClickedOutside(event, 'modal-new-city')"
+    >
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('modal-new-city')"
+          >&times;</span
+        >
+        <h2>Новый город</h2>
+        <p>Теперь ваш город: <span id="newCityName">???</span></p>
+      </div>
+    </div>
+
+    <!-- Модалка: вопрос о погоде -->
+    <div
+      class="modal"
+      id="modal-check-weather"
+      onclick="closeIfClickedOutside(event, 'modal-check-weather')"
+    >
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('modal-check-weather')"
+          >&times;</span
+        >
+        <h2>Это верная погода?</h2>
+        <p id="weatherQuestion"></p>
+        <div class="modal-buttons">
+          <button id="weatherYesBtn">Да</button>
+          <button id="weatherNoBtn">Нет</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Модалка: ввод правильной погоды -->
+    <div
+      class="modal"
+      id="modal-enter-weather"
+      onclick="closeIfClickedOutside(event, 'modal-enter-weather')"
+    >
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('modal-enter-weather')"
+          >&times;</span
+        >
+        <h2>Введите правильную температуру</h2>
+        <input type="text" id="userWeatherInput" placeholder="например 15°C" />
+        <button id="userWeatherSubmit">Сохранить</button>
+      </div>
+    </div>
+
+    <!-- Модалка: спасибо -->
+    <div
+      class="modal"
+      id="modal-thanks"
+      onclick="closeIfClickedOutside(event, 'modal-thanks')"
+    >
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('modal-thanks')">&times;</span>
+        <h2>Спасибо!</h2>
+        <p>Новая температура сохранена.</p>
+      </div>
+    </div>
+  </body>
+</html>

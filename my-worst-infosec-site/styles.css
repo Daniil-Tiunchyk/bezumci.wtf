@@ -1,0 +1,144 @@
+/* Сброс */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: sans-serif;
+    position: relative;
+    min-height: 100vh;
+  }
+  
+  /* Сайдбар */
+  #sidebar {
+    position: absolute;
+    background: #ccc;
+    padding: 1rem;
+    border: 2px solid #333;
+    z-index: 1000;
+  }
+  
+  #sidebar ul {
+    list-style: none;
+  }
+  #sidebar li {
+    margin: 0.5rem 0;
+  }
+  #sidebar a {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+  }
+  
+  /* Шапка */
+  header {
+    background: #eee;
+    padding: 1rem;
+    border-bottom: 1px solid #333;
+  }
+  
+  header h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Контент */
+  main {
+    padding: 1rem;
+  }
+  
+  .info-block {
+    margin-bottom: 1rem;
+    border: 1px solid #666;
+    padding: 1rem;
+    background: #f9f9f9;
+  }
+  
+  .form-section {
+    margin: 2rem;
+  }
+  
+  /* Футер */
+  footer {
+    background: #eee;
+    padding: 1rem;
+    border-top: 1px solid #333;
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  /* Кнопка переключения осадков */
+  #toggleSnowButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1100;
+    padding: 0.5rem 1rem;
+  }
+  
+  /* Контейнер для осадков */
+  #precipitationContainer {
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 999;
+  }
+  
+  /* Модалки */
+  .modal {
+    display: none; /* скрыта по умолчанию */
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5); /* полупрозрачная подложка */
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 1rem;
+    width: 80%;
+    max-width: 500px;
+    position: relative;
+    border-radius: 4px;
+  }
+  
+  .close {
+    color: #aaa;
+    font-size: 1.5rem;
+    font-weight: bold;
+    position: absolute;
+    right: 1rem;
+    top: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .modal-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 1rem;
+  }
+  
+  /* Реклама Ozon */
+  .ad-content {
+    background-color: #FFFF00; /* яркий фон рекламы */
+    text-align: center;
+    border: 3px dashed red;
+    position: relative;
+    min-height: 200px;
+    min-width: 300px;
+  }
+  .ad-close-btn {
+    /* крестик внутри рекламы */
+    color: #000;
+  }
+  
