@@ -9,7 +9,7 @@ function initializeWeatherPage() {
   positionSidebarRandomly();
   startSnow();
 
-  // Проверим, залогинен ли пользователь (упрощённо через localStorage)
+  // Проверяем, залогинен ли пользователь
   const isLoggedIn = localStorage.getItem("isLoggedIn");
   if (isLoggedIn !== "true") {
     openModal("modal-auth-required");
@@ -18,7 +18,8 @@ function initializeWeatherPage() {
     }, 2000);
   } else {
     setupWeatherUI();
-    showUserTable(); // Псевдо-CRUD пользователей
+    showUserTable();
+    initializeSiteSpeed();
   }
 }
 
@@ -234,4 +235,57 @@ function getRandomCity() {
   ];
   const idx = Math.floor(Math.random() * cities.length);
   return cities[idx];
+}
+
+function initializeSiteSpeed() {
+  fetch(`${BASE_URL}/sait/poluchit`)
+    .then(async (res) => {
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(errText);
+      }
+      return res.json();
+    })
+    .then((data) => {
+      // Предполагаем, что сервер возвращает объект с полем speed
+      const currentSpeed = data.speed;
+      const slider = document.getElementById("speedRange");
+      const display = document.getElementById("speedValue");
+      if (slider && display) {
+        slider.value = currentSpeed;
+        display.textContent = `${currentSpeed} мс`;
+      }
+    })
+    .catch((err) => {
+      console.error("Ошибка получения настроек сайта:", err.message);
+    });
+}
+
+function updateSpeedDisplay(value) {
+  const display = document.getElementById("speedValue");
+  if (display) {
+    display.textContent = `${value} мс`;
+  }
+}
+
+function updateSiteSpeed() {
+  const slider = document.getElementById("speedRange");
+  if (!slider) return;
+  const newSpeed = slider.value;
+  fetch(`${BASE_URL}/sait/izmenit-skorosti?znachenie=${newSpeed}`, {
+    method: "POST",
+  })
+    .then(async (res) => {
+      if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error(errorText || "Ошибка обновления настроек");
+      }
+      return res.json();
+    })
+    .then((data) => {
+      alert(`Настройки сайта обновлены. Новая скорость: ${newSpeed} мс`);
+    })
+    .catch((err) => {
+      alert("Ошибка обновления настроек: " + err.message);
+    });
 }

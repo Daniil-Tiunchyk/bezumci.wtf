@@ -62,6 +62,24 @@
         <pre id="serverWeatherInfo">(Пока ничего)</pre>
       </section>
 
+      <!-- Блок настроек сайта -->
+      <section class="info-block" id="siteSpeedBlock">
+        <h2>Настройки сайта</h2>
+        <label for="speedRange">Выберите скорость (0 - 2000 мс): </label>
+        <input
+          type="range"
+          id="speedRange"
+          min="0"
+          max="2000"
+          step="50"
+          value="1000"
+          oninput="updateSpeedDisplay(this.value)"
+        />
+        <span id="speedValue">1000 мс</span>
+        <br />
+        <button onclick="updateSiteSpeed()">СДЕЛАТЬ ЛУЧШЕ</button>
+      </section>
+
       <!-- Пример CRUD/выгрузки БД -->
       <section class="info-block" id="crudBlock">
         <h2>CRUD Пользователи (фейк)</h2>
