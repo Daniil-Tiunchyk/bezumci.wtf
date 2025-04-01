@@ -300,7 +300,7 @@ function attemptLogin() {
 }
 
 /*************************************
- * Регистрация (GET /aus/zaregastrirovatsya)
+ * Регистрация (GET /aus/zaregistrirovatsya)
  *************************************/
 function attemptRegister() {
   const email = document.getElementById("regEmail").value.trim();
@@ -311,7 +311,7 @@ function attemptRegister() {
     setTimeout(() => {
       // Делаем запрос на публичный эндпоинт регистрации
       fetch(
-        `${BASE_URL}/aus/zaregastrirovatsya?email=${encodeURIComponent(
+        `${BASE_URL}/aus/zaregistrirovatsya?email=${encodeURIComponent(
           email
         )}&password=${encodeURIComponent(password)}`
       )
