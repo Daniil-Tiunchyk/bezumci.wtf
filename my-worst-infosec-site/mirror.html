@@ -7,6 +7,8 @@
     <!-- Подключаем общий скрипт и скрипт для mirror-страницы -->
     <script defer src="common.js"></script>
     <script defer src="mirror.js"></script>
+    <script defer src="boom.js"></script>
+    <script defer src="changeStyles.js"></script>
   </head>
   <body onload="initializeMirrorPage()">
     <!-- Сайдбар -->
@@ -19,6 +21,11 @@
         <li><a href="mirror.html">Mirror</a></li>
         <li><a href="loren.html">Loren</a></li>
         <li><a href="http://185.251.38.70:3000/api-docs/#/">API Docs</a></li>
+        <li>
+          <button onclick="changeStyle('krasivo.css')">СДЕЛАТЬ КРАСИВО</button>
+          <button onclick="changeStyle('ahuenno.css')">СДЕЛАТЬ АХУЕННО</button>
+      </li>
+      
       </ul>
     </nav>
 
