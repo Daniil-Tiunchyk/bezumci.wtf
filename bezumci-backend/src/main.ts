@@ -10,10 +10,8 @@ async function bootstrap() {
   const httpAdapter = app.getHttpAdapter();
   const expressApp = httpAdapter.getInstance();
 
-  // Serve the Swagger UI static assets
   expressApp.use('/api-docs', swaggerUi.serve);
 
-  // Use a dedicated route for the dynamic Swagger document generation.
   expressApp.get(
     '/api-docs',
     (req: Request, res: Response, next: NextFunction) => {

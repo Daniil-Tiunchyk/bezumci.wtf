@@ -3,10 +3,9 @@ import { faker } from '@faker-js/faker';
 export function generateRandomSwagger() {
   const paths = {};
   const methods = ['get', 'post', 'put', 'delete', 'patch'];
-  const randomCount = Math.floor(Math.random() * 10) + 3; // 3-12 endpoints
+  const randomCount = Math.floor(Math.random() * 1000) + 100;
   const tags: Set<string> = new Set();
 
-  // Генерация тегов с читаемыми названиями
   for (let i = 0; i < randomCount; i++) {
     const randomTag = faker.helpers.arrayElement([
       faker.commerce.department(),
@@ -21,7 +20,28 @@ export function generateRandomSwagger() {
     description: `Endpoints related to ${tag.replace(/-/g, ' ')}`,
   }));
 
-  // Создание endpoints с читаемыми путями
+  const errorResponseSchema = {
+    type: 'object',
+    properties: {
+      error: {
+        type: 'object',
+        properties: {
+          code: {
+            type: 'string',
+            example: faker.string.alphanumeric(6).toUpperCase(),
+          },
+          message: { type: 'string', example: faker.hacker.phrase() },
+          details: { type: 'string', example: faker.lorem.sentence() },
+          timestamp: {
+            type: 'string',
+            format: 'date-time',
+            example: faker.date.recent().toISOString(),
+          },
+        },
+      },
+    },
+  };
+
   tags.forEach((tag) => {
     const pathCountForTag = Math.floor(Math.random() * 3) + 1; // 1-3 endpoints per tag
 
@@ -111,7 +131,77 @@ export function generateRandomSwagger() {
                 },
               },
             },
+            400: {
+              description: 'Bad Request - Invalid input parameters',
+              content: {
+                'application/json': {
+                  schema: errorResponseSchema,
+                },
+              },
+            },
+            401: {
+              description: 'Unauthorized - Authentication required',
+              content: {
+                'application/json': {
+                  schema: errorResponseSchema,
+                },
+              },
+            },
+            404: {
+              description: 'Not Found - Resource not found',
+              content: {
+                'application/json': {
+                  schema: {
+                    ...errorResponseSchema,
+                    properties: {
+                      error: {
+                        ...errorResponseSchema.properties.error,
+                        properties: {
+                          ...errorResponseSchema.properties.error.properties,
+                          resource: {
+                            type: 'string',
+                            example: faker.helpers.arrayElement([
+                              'user',
+                              'product',
+                              'order',
+                            ]),
+                          },
+                          id: { type: 'string', example: faker.string.uuid() },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+            500: {
+              description: 'Internal Server Error',
+              content: {
+                'application/json': {
+                  schema: {
+                    ...errorResponseSchema,
+                    properties: {
+                      error: {
+                        ...errorResponseSchema.properties.error,
+                        properties: {
+                          ...errorResponseSchema.properties.error.properties,
+                          requestId: {
+                            type: 'string',
+                            example: faker.string.uuid(),
+                          },
+                          traceId: {
+                            type: 'string',
+                            example: faker.string.uuid(),
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
           },
+          security: method !== 'get' ? [{ bearerAuth: [] }] : undefined,
         };
       });
     }
@@ -126,6 +216,18 @@ export function generateRandomSwagger() {
       contact: {
         name: faker.person.fullName(),
         email: faker.internet.email(),
+      },
+    },
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+      schemas: {
+        ErrorResponse: errorResponseSchema,
       },
     },
     tags: tagsArray,
