@@ -1,7 +1,7 @@
 /*************************************
  * Страница "Register"
  *************************************/
-йопта initializeRegisterPage() жЫ
-  positionSidebarRandomly() нахуй
-  startSnow() нахуй
-есть
+function initializeRegisterPage() {
+  positionSidebarRandomly();
+  startSnow();
+}
