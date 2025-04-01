@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <title>Погодное приложение</title>
     <link rel="stylesheet" href="styles.css" />
-    <!-- Подключаем отдельный скрипт для погоды -->
+    <!-- Подключаем общий скрипт (общая логика) и weather.js -->
+    <script defer src="common.js"></script>
     <script defer src="weather.js"></script>
   </head>
   <body onload="initializeWeatherPage()">
@@ -18,7 +19,7 @@
       </ul>
     </nav>
 
-    <!-- Кнопка переключения снега -->
+    <!-- Кнопка переключения снега/дождя -->
     <button id="toggleSnowButton" onclick="togglePrecipitation()">
       Сменить статус снега
     </button>
@@ -28,7 +29,7 @@
     </header>
 
     <main>
-      <!-- Основная логика "проверить город" -->
+      <!-- Основная логика "Проверить город" -->
       <section class="info-block" id="weatherBlock">
         <h2>Случайный город</h2>
         <p><strong>Текущий город:</strong> <span id="currentCity"></span></p>
