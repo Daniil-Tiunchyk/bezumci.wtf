@@ -1,1 +1,1 @@
-{"users":[{"email":"hui@mail.ru","password":"penis","id":1},{"email":"aye@mail.ru","password":"gzgzgz","id":2}],"siteSpeed":[{"id":1,"speed":5000}]}
+{"users":[{"email":"hui@mail.ru","password":"penis","id":1},{"email":"aye@mail.ru","password":"gzgzgz","id":2}],"siteSpeed":[{"id":1,"speed":200}]}

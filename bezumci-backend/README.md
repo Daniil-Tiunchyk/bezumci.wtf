@@ -5,6 +5,7 @@ A deliberately chaotic NestJS API with random Braille documentation, Stalin-sort
 ## 🌪️ Features
 
 - **Random Swagger Documentation** - Auto-generates docs with 50% Braille conversion
+- **Caesars cypher** - all users data stored securely!
 - **Stalin Sort** - "Sorts" users by eliminating disordered elements
 - **Configurable Chaos** - Control response delays and error rates
 - **Russian Roulette Endpoints** - Some routes might work... or might not

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { faker } from '@faker-js/faker';
+import { fakerRU as faker } from '@faker-js/faker';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
@@ -17,13 +17,9 @@ export class WeatherService {
    * @throws Error se la richiesta API fallisce
    */
   async getWeather() {
-    // Genera coordinate casuali per la localizzazione
-    const lat = faker.number.float({ min: -90, max: 90, fractionDigits: 2 });
-    const lon = faker.number.float({ min: -180, max: 180, fractionDigits: 2 });
-
     // Costruisce gli URL per le API meteo e geolocalizzazione
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${this.weatherApiKey}&units=metric`;
-    const cityApiUrl = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&appid=${this.weatherApiKey}`;
+    const randomCity = faker.location.city();
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${randomCity}&units=metric&appid=${this.weatherApiKey}`;
 
     // Prima chiamata API per i dati meteo principali
     const response = await fetch(apiUrl);
@@ -45,31 +41,6 @@ export class WeatherService {
         longitude: data.coord.lon,
       },
     };
-
-    // Seconda chiamata API per i dati sulla città
-    const cityResponse = await fetch(cityApiUrl);
-    if (!cityResponse.ok) {
-      throw new Error('Failed to fetch city data');
-    }
-    const cityData = await cityResponse.json();
-
-    // Gestisce i casi in cui la località non è trovata
-    if (cityData.length === 0) {
-      weatherData.city = 'Unknown';
-      weatherData.country = 'Unknown';
-      weatherData.coordinates = {
-        latitude: lat,
-        longitude: lon,
-      };
-    } else {
-      // Aggiorna con i dati precisi della località
-      weatherData.city = cityData[0].name;
-      weatherData.country = cityData[0].country;
-      weatherData.coordinates = {
-        latitude: cityData[0].lat,
-        longitude: cityData[0].lon,
-      };
-    }
 
     return weatherData;
   }
