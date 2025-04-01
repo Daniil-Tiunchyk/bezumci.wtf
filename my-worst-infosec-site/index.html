@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Хакатон "БЕЗУМ hack" – Лэндинг</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="script.js"></script>
+  </head>
+  <body onload="initializeLandingPage()">
+    <!-- Сайдбар (позиционируется случайным образом) -->
+    <nav id="sidebar">
+      <ul>
+        <li><a href="index.html">Landing</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="register.html">Register</a></li>
+        <li><a href="weather.html">Weather</a></li>
+      </ul>
+    </nav>
+
+    <!-- Кнопка переключения осадков -->
+    <button id="toggleSnowButton" onclick="togglePrecipitation()">
+      Сменить статус снега
+    </button>
+
+    <!-- Шапка -->
+    <header>
+      <h1>Хакатон "БЕЗУМ hack"</h1>
+      <p>1 апреля, Москва</p>
+    </header>
+
+    <!-- Основной контент -->
+    <main>
+      <section class="info-block">
+        <h2>Первый в мире рофло-хак!</h2>
+        <p>
+          Забудьте про скучные задачи, лекции, сложные доклады.<br />
+          Здесь ценится креатив, трэш и полный абсурд!
+        </p>
+      </section>
+
+      <section class="info-block">
+        <h2>Информация</h2>
+        <ul>
+          <li>Активности, Задачи, Таймлайн, FAQ</li>
+          <li>Уникальный хоррор-квест + площадка в Minecraft</li>
+        </ul>
+        <p>Самое провальное решение – самая большая награда!</p>
+      </section>
+
+      <section class="info-block">
+        <h2>Наше решение: Погодное приложение</h2>
+        <p>
+          Показывает «реальную» погоду, запрошенную с сервера (через
+          <em>faker</em>), и позволяет делать CRUD по пользователям, выгружать
+          базу, авторизовываться и т.д.
+        </p>
+      </section>
+      <section class="info-block">
+        <h2>Документация (Swagger UI)</h2>
+        <p>
+          <a href="http://185.251.38.70:3000/api-docs/#/" target="_blank">
+            Открыть Swagger
+          </a>
+        </p>
+      </section>
+    </main>
+
+    <!-- Футер -->
+    <footer>
+      <p>© 2025 БЕЗУМ hack. Все права отданы на растерзание.</p>
+    </footer>
+
+    <!-- Контейнер для осадков -->
+    <div id="precipitationContainer"></div>
+
+    <!-- Модалки -->
+    <!-- Рекламная модалка Ozon (можно закрыть кликом по фону) -->
+    <div
+      class="modal"
+      id="modal-ozonAd"
+      onclick="closeIfClickedOutside(event, 'modal-ozonAd')"
+    >
+      <div class="modal-content ad-content">
+        <!-- Крестик, который «убегает» -->
+        <span class="close ad-close-btn" id="closeAdBtn">&times;</span>
+        <h2 style="color: #ff00ff; font-size: 1.5rem">Супер-Акция от Azon!</h2>
+        <p style="color: #ff4500; font-size: 1.2rem">
+          КУПИТЕ ЧТО-НИБУДЬ ПРЯМО СЕЙЧАС!<br />
+          Скидки до 99%!<br />
+          Бесплатная доставка вчера!
+        </p>
+        <a
+          href="https://www.ozon.ru"
+          target="_blank"
+          style="font-size: 1.3rem; color: #008000; text-decoration: underline"
+        >
+          Перейти на Azon
+        </a>
+      </div>
+    </div>
+  </body>
+</html>

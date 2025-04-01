@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Авторизация</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="script.js"></script>
+  </head>
+  <body onload="initializeLoginPage()">
+    <!-- Сайдбар -->
+    <nav id="sidebar">
+      <ul>
+        <li><a href="index.html">Landing</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="register.html">Register</a></li>
+        <li><a href="weather.html">Weather</a></li>
+      </ul>
+    </nav>
+
+    <button id="toggleSnowButton" onclick="togglePrecipitation()">
+      Сменить статус снега
+    </button>
+
+    <header>
+      <h1>Авторизация</h1>
+    </header>
+
+    <main>
+      <section class="form-section">
+        <form id="loginForm" onsubmit="event.preventDefault(); attemptLogin();">
+          <div>
+            <label for="loginEmail">Email:</label>
+            <input type="text" id="loginEmail" required />
+          </div>
+          <div>
+            <label for="loginPassword"
+              >Пароль (только '*','x','u','й', макс 5):</label
+            >
+            <input
+              type="text"
+              id="loginPassword"
+              maxlength="5"
+              oninput="checkPasswordValidity(this)"
+              required
+            />
+          </div>
+          <button type="submit">Войти</button>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <p>© 2025 БЕЗУМ hack - Login Page</p>
+    </footer>
+
+    <div id="precipitationContainer"></div>
+
+    <!-- Модалки -->
+    <div
+      class="modal"
+      id="modal-queue"
+      onclick="closeIfClickedOutside(event, 'modal-queue')"
+    >
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('modal-queue')">&times;</span>
+        <h2>Подождите в очереди</h2>
+        <p id="queueText">Перед вами n человек...</p>
+      </div>
+    </div>
+
+    <div
+      class="modal"
+      id="modal-login-result"
+      onclick="closeIfClickedOutside(event, 'modal-login-result')"
+    >
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('modal-login-result')"
+          >&times;</span
+        >
+        <h2>Авторизация</h2>
+        <p id="loginResultText"></p>
+      </div>
+    </div>
+  </body>
+</html>
