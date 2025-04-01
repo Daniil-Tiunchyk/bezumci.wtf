@@ -2,11 +2,11 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <title>Погодное приложение</title>
+    <title>Регистрация</title>
     <link rel="stylesheet" href="styles.css" />
     <script defer src="script.js"></script>
   </head>
-  <body onload="initializeWeatherPage()">
+  <body onload="initializeRegisterPage()">
     <!-- Сайдбар -->
     <nav id="sidebar">
       <ul>
@@ -22,44 +22,38 @@
     </button>
 
     <header>
-      <h1>Погодное приложение</h1>
+      <h1>Регистрация</h1>
     </header>
 
     <main>
-      <section class="info-block">
-        <h2>Погода с сервера</h2>
-        <button onclick="fetchWeatherData()">Обновить погоду</button>
-        <pre id="weatherDataText">(Пока ничего)</pre>
-      </section>
-
-      <section class="info-block" id="crudBlock">
-        <h2>CRUD Пользователи (через /polzovateli/...)</h2>
-
-        <button onclick="loadAllUsers()">Загрузить всех пользователей</button>
-        <pre id="usersTable"></pre>
-
-        <h3>Добавить пользователя</h3>
-        <label>Email:</label> <input type="email" id="addUserEmail" />
-        <label>Пароль:</label> <input type="text" id="addUserPassword" />
-        <button onclick="addUser()">Добавить</button>
-
-        <h3>Изменить пользователя</h3>
-        <label>ID:</label> <input type="number" id="updateUserId" />
-        <label>Email:</label> <input type="email" id="updateUserEmail" />
-        <label>Пароль:</label> <input type="text" id="updateUserPassword" />
-        <button onclick="updateUser()">Изменить</button>
-
-        <h3>Удалить пользователя</h3>
-        <label>ID:</label> <input type="number" id="deleteUserId" />
-        <button onclick="deleteUser()">Удалить</button>
-
-        <br /><br />
-        <button onclick="downloadDbTxt()">Выгрузить БД (txt)</button>
+      <section class="form-section">
+        <form
+          id="registerForm"
+          onsubmit="event.preventDefault(); attemptRegister();"
+        >
+          <div>
+            <label for="regEmail">Email:</label>
+            <input type="text" id="regEmail" required />
+          </div>
+          <div>
+            <label for="regPassword"
+              >Пароль (только '*','x','u','й', макс 5):</label
+            >
+            <input
+              type="text"
+              id="regPassword"
+              maxlength="5"
+              oninput="checkPasswordValidity(this)"
+              required
+            />
+          </div>
+          <button type="submit">Зарегистрироваться</button>
+        </form>
       </section>
     </main>
 
     <footer>
-      <p>© 2025 БЕЗУМ hack — Weather Page</p>
+      <p>© 2025 БЕЗУМ hack - Registration Page</p>
     </footer>
 
     <div id="precipitationContainer"></div>
@@ -67,27 +61,27 @@
     <!-- Модалки -->
     <div
       class="modal"
-      id="modal-auth-required"
-      onclick="closeIfClickedOutside(event, 'modal-auth-required')"
+      id="modal-queue"
+      onclick="closeIfClickedOutside(event, 'modal-queue')"
     >
       <div class="modal-content">
-        <span class="close" onclick="closeModal('modal-auth-required')"
-          >&times;</span
-        >
-        <h2>Доступ запрещён</h2>
-        <p>Вы не авторизованы! Пожалуйста, войдите в систему.</p>
+        <span class="close" onclick="closeModal('modal-queue')">&times;</span>
+        <h2>Подождите в очереди</h2>
+        <p id="queueText">Перед вами n человек...</p>
       </div>
     </div>
 
     <div
       class="modal"
-      id="modal-noauth"
-      onclick="closeIfClickedOutside(event, 'modal-noauth')"
+      id="modal-register-result"
+      onclick="closeIfClickedOutside(event, 'modal-register-result')"
     >
       <div class="modal-content">
-        <span class="close" onclick="closeModal('modal-noauth')">&times;</span>
-        <h2>Ошибка авторизации</h2>
-        <p id="noauthMsg"></p>
+        <span class="close" onclick="closeModal('modal-register-result')"
+          >&times;</span
+        >
+        <h2>Регистрация</h2>
+        <p id="registerResultText"></p>
       </div>
     </div>
   </body>

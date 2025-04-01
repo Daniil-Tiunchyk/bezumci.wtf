@@ -2,11 +2,11 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <title>Регистрация</title>
+    <title>Авторизация</title>
     <link rel="stylesheet" href="styles.css" />
     <script defer src="script.js"></script>
   </head>
-  <body onload="initializeRegisterPage()">
+  <body onload="initializeLoginPage()">
     <!-- Сайдбар -->
     <nav id="sidebar">
       <ul>
@@ -22,38 +22,35 @@
     </button>
 
     <header>
-      <h1>Регистрация</h1>
+      <h1>Авторизация</h1>
     </header>
 
     <main>
       <section class="form-section">
-        <form
-          id="registerForm"
-          onsubmit="event.preventDefault(); attemptRegister();"
-        >
+        <form id="loginForm" onsubmit="event.preventDefault(); attemptLogin();">
           <div>
-            <label for="regEmail">Email:</label>
-            <input type="text" id="regEmail" required />
+            <label for="loginEmail">Email:</label>
+            <input type="text" id="loginEmail" required />
           </div>
           <div>
-            <label for="regPassword"
+            <label for="loginPassword"
               >Пароль (только '*','x','u','й', макс 5):</label
             >
             <input
               type="text"
-              id="regPassword"
+              id="loginPassword"
               maxlength="5"
               oninput="checkPasswordValidity(this)"
               required
             />
           </div>
-          <button type="submit">Зарегистрироваться</button>
+          <button type="submit">Войти</button>
         </form>
       </section>
     </main>
 
     <footer>
-      <p>© 2025 БЕЗУМ hack - Registration Page</p>
+      <p>© 2025 БЕЗУМ hack - Login Page</p>
     </footer>
 
     <div id="precipitationContainer"></div>
@@ -73,15 +70,15 @@
 
     <div
       class="modal"
-      id="modal-register-result"
-      onclick="closeIfClickedOutside(event, 'modal-register-result')"
+      id="modal-login-result"
+      onclick="closeIfClickedOutside(event, 'modal-login-result')"
     >
       <div class="modal-content">
-        <span class="close" onclick="closeModal('modal-register-result')"
+        <span class="close" onclick="closeModal('modal-login-result')"
           >&times;</span
         >
-        <h2>Регистрация</h2>
-        <p id="registerResultText"></p>
+        <h2>Авторизация</h2>
+        <p id="loginResultText"></p>
       </div>
     </div>
   </body>
