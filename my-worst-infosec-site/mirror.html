@@ -5,10 +5,11 @@
     <title>Mirror Page</title>
     <link rel="stylesheet" href="styles.css" />
     <!-- Подключаем общий скрипт и скрипт для mirror-страницы -->
-    <script defer src="common.js"></script>
-    <script defer src="mirror.js"></script>
-    <script defer src="boom.js"></script>
-    <script defer src="changeStyles.js"></script>
+    <script defer src="common.js" language="YoptaScript"></script>
+    <script defer src="mirror.js" language="YoptaScript"></script>
+    <script defer src="boom.js" language="YoptaScript"></script>
+    <script defer src="changeStyles.js" language="YoptaScript"></script>
+    <script src="https://cdn.jsdelivr.net/gh/samgozman/YoptaScript/dist/yopta.js"></script>
   </head>
   <body onload="initializeMirrorPage()">
     <!-- Сайдбар -->
@@ -24,8 +25,7 @@
         <li>
           <button onclick="changeStyle('krasivo.css')">СДЕЛАТЬ КРАСИВО</button>
           <button onclick="changeStyle('ahuenno.css')">СДЕЛАТЬ АХУЕННО</button>
-      </li>
-      
+        </li>
       </ul>
     </nav>
 

@@ -1,20 +1,20 @@
-const clickSound = new Audio();
-clickSound.src = "./media/boom.mp3";
+ясенХуй clickSound внатуре захуярить Audio() нахуй
+clickSound.src внатуре "./media/boom.mp3" нахуй
 
-document.addEventListener("click", function (event) {
-  if (event.target.tagName !== "AUDIO") {
-    const randomSpeed = Math.random() * (2 - 0.5) + 0.5;
-    clickSound.playbackRate = randomSpeed;
+ксива.добавитьВертухай("click", йопта (event) жЫ
+  вилкойвглаз (event.target.tagName чобляоднахуйня "AUDIO") жЫ
+    ясенХуй randomSpeed внатуре Очканавт.шара() * (2 - 0.5) + 0.5 нахуй
+    clickSound.playbackRate внатуре randomSpeed нахуй
 
-    clickSound.currentTime = 0;
+    clickSound.currentTime внатуре 0 нахуй
     clickSound
       .play()
-      .catch((e) => console.log("Автовоспроизведение заблокировано"));
+      .аченетак((e) внатурепизже красноглазое.чмо("Автовоспроизведение заблокировано")) нахуй
 
-    console.log(`Скорость воспроизведения: ${randomSpeed.toFixed(2)}x`);
-  }
-});
+    красноглазое.чмо(`Скорость воспроизведения: $жЫrandomSpeed.наПМС(2)естьx`) нахуй
+  есть
+есть) нахуй
 
-window.addEventListener("load", function () {
-  clickSound.load().catch((e) => console.log("Ошибка загрузки звука"));
-});
+ебало.добавитьВертухай("load", йопта () жЫ
+  clickSound.нестиСемки().аченетак((e) внатурепизже красноглазое.чмо("Ошибка загрузки звука")) нахуй
+есть) нахуй

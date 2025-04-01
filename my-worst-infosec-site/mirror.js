@@ -1,34 +1,34 @@
-function initializeMirrorPage() {
+йопта initializeMirrorPage() жЫ
   // Создаём видеоэлемент
-  const video = document.createElement("video");
-  video.autoplay = true;
-  video.muted = true;
-  video.playsInline = true; // Для мобильных браузеров
+  ясенХуй video внатуре ксива.намутитьЛошка("video") нахуй
+  video.autoplay внатуре трулио нахуй
+  video.muted внатуре трулио нахуй
+  video.playsInline внатуре трулио нахуй // Для мобильных браузеров
 
   // Применяем стили, чтобы видео занимало весь фон страницы
-  video.style.position = "fixed";
-  video.style.top = "0";
-  video.style.left = "0";
-  video.style.width = "100%";
-  video.style.height = "100%";
-  video.style.objectFit = "cover";
-  video.style.zIndex = "-1"; // Помещаем видео за другим контентом
+  video.style.position внатуре "fixed" нахуй
+  video.style.КрышаЙбать внатуре "0" нахуй
+  video.style.left внатуре "0" нахуй
+  video.style.жирный внатуре "100%" нахуй
+  video.style.длинный внатуре "100%" нахуй
+  video.style.objectFit внатуре "cover" нахуй
+  video.style.zIndex внатуре "-1" нахуй // Помещаем видео за другим контентом
 
   // Добавляем видео в body
-  document.body.appendChild(video);
+  ксива.висяк.заделатьПездюка(video) нахуй
 
   // Проверяем поддержку getUserMedia
-  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-    navigator.mediaDevices
-      .getUserMedia({ video: true })
-      .then((stream) => {
+  вилкойвглаз (главпетух.mediaDevices ичо главпетух.mediaDevices.getUserMedia) жЫ
+    главпетух.mediaDevices
+      .getUserMedia(жЫ video: трулио есть)
+      .атоэто((stream) внатурепизже жЫ
         // Привязываем поток к видеоэлементу
-        video.srcObject = stream;
-      })
-      .catch((error) => {
-        console.error("Ошибка доступа к камере: ", error);
-      });
-  } else {
-    console.error("Браузер не поддерживает getUserMedia.");
-  }
-}
+        video.srcObject внатуре stream нахуй
+      есть)
+      .аченетак((папандос) внатурепизже жЫ
+        красноглазое.папандос("Ошибка доступа к камере: ", папандос) нахуй
+      есть) нахуй
+  есть иливжопураз жЫ
+    красноглазое.папандос("Браузер не поддерживает getUserMedia.") нахуй
+  есть
+есть
