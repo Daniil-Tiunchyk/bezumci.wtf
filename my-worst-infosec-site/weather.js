@@ -1,22 +1,15 @@
 /*************************************
- * Глобальные настройки
+ * Weather Page
  *************************************/
-const BASE_URL = "http://185.251.38.70:3000"; // Пример
-let currentPrecipitation = null; // "snow" или "rain"
-let precipitationInterval = null;
 
-// Город/температура по умолчанию (логика "проверить город")
-let currentCity = "";
-let currentTemp = "21°C";
-
-/*************************************
- * Инициализация страницы
- *************************************/
+/**
+ * Точка входа: вызывается при загрузке weather.html (onload="initializeWeatherPage()")
+ */
 function initializeWeatherPage() {
   positionSidebarRandomly();
-  startSnow(); // по умолчанию идёт снег
+  startSnow();
 
-  // Проверим авторизацию:
+  // Проверим, залогинен ли пользователь (упрощённо через localStorage)
   const isLoggedIn = localStorage.getItem("isLoggedIn");
   if (isLoggedIn !== "true") {
     openModal("modal-auth-required");
@@ -24,9 +17,8 @@ function initializeWeatherPage() {
       window.location.href = "login.html";
     }, 2000);
   } else {
-    // Если авторизован, подготавливаем погоду
     setupWeatherUI();
-    showUserTableFake(); // Псевдо-CRUD
+    showUserTableFake(); // Псевдо-CRUD пользователей
   }
 }
 
@@ -34,7 +26,7 @@ function initializeWeatherPage() {
  * Псевдо-CRUD пользователей (фейк)
  *************************************/
 function downloadFakeDB() {
-  // В демо делаем просто фейковый JSON -> txt
+  // В демо просто скачиваем фейковый JSON как .txt
   const fakeUsers = [
     { id: 1, name: "Alice", role: "admin" },
     { id: 2, name: "Bob", role: "user" },
@@ -66,15 +58,17 @@ function showUserTableFake() {
 }
 
 /*************************************
- * Логика погоды (клиентская)
+ * "Клиентская" погода (игровая логика)
  *************************************/
+let currentCity = "";
+let currentTemp = "21°C";
+
 function setupWeatherUI() {
-  // Ставим рандомный город
   currentCity = getRandomCity();
   currentTemp = "21°C";
   updateWeatherUI();
 
-  // Привязываем кнопку "Сохранить" в модалке "Введите правильную погоду"
+  // Обработка кнопки "Сохранить" в модалке "Введите правильную погоду"
   const submitWeatherBtn = document.getElementById("userWeatherSubmit");
   if (submitWeatherBtn) {
     submitWeatherBtn.onclick = () => {
@@ -93,7 +87,7 @@ function setupWeatherUI() {
 }
 
 function startCityCheck() {
-  // Спрашиваем "Это ваш город?" через модалку
+  // Показываем модалку: "Это ваш город?"
   const cityQuestionText = document.getElementById("cityQuestionText");
   if (cityQuestionText) {
     cityQuestionText.textContent = `Это ваш город: ${currentCity}?`;
@@ -129,7 +123,7 @@ function startCityCheck() {
 }
 
 function askWeatherCheck() {
-  // Спрашиваем: "Это верная погода?"
+  // Спрашиваем, верная ли температура
   const questionEl = document.getElementById("weatherQuestion");
   if (questionEl) {
     questionEl.textContent = `Считаем, что там ${currentTemp}. Верно?`;
@@ -142,52 +136,39 @@ function askWeatherCheck() {
   if (yesBtn) {
     yesBtn.onclick = () => {
       closeModal("modal-check-weather");
-      // Ничего не меняем
       updateWeatherUI();
     };
   }
   if (noBtn) {
     noBtn.onclick = () => {
       closeModal("modal-check-weather");
-      // Показываем модалку "Введите правильную погоду"
+      // Показываем модалку для ручного ввода
       openModal("modal-enter-weather");
     };
   }
 }
 
 function updateWeatherUI() {
-  // Обновляем HTML
   const cityEl = document.getElementById("currentCity");
   const weatherEl = document.getElementById("currentWeather");
   const imgEl = document.getElementById("weatherImage");
 
-  if (cityEl) cityEl.textContent = currentCity;
-  if (weatherEl) weatherEl.textContent = currentTemp;
+  if (cityEl) {
+    cityEl.textContent = currentCity;
+  }
+  if (weatherEl) {
+    weatherEl.textContent = currentTemp;
+  }
 
-  // Случайная картинка (1..7)
+  // Случайная картинка (media/1.jpg..7.jpg)
   const randomIndex = Math.floor(Math.random() * 7) + 1;
   if (imgEl) {
     imgEl.src = `media/${randomIndex}.jpg`;
   }
 }
 
-function getRandomCity() {
-  const cities = [
-    "Москва",
-    "Самара",
-    "Новосибирск",
-    "Челябинск",
-    "Владивосток",
-    "Казань",
-    "Урюпинск",
-    "Воркута",
-  ];
-  const idx = Math.floor(Math.random() * cities.length);
-  return cities[idx];
-}
-
 /*************************************
- * Получить "реальную" погоду с сервера
+ * Запрос "реальной" погоды с сервера
  *************************************/
 function fetchServerWeather() {
   const serverInfoEl = document.getElementById("serverWeatherInfo");
@@ -204,7 +185,6 @@ function fetchServerWeather() {
       return res.json();
     })
     .then((data) => {
-      // Выведем JSON
       if (serverInfoEl) {
         serverInfoEl.textContent = JSON.stringify(data, null, 2);
       }
@@ -216,134 +196,17 @@ function fetchServerWeather() {
     });
 }
 
-/*************************************
- * Модалки
- *************************************/
-function openModal(id) {
-  const modal = document.getElementById(id);
-  if (modal) modal.style.display = "block";
-}
-
-function closeModal(id) {
-  const modal = document.getElementById(id);
-  if (modal) modal.style.display = "none";
-}
-
-function closeIfClickedOutside(event, modalId) {
-  const modal = document.getElementById(modalId);
-  if (!modal) return;
-  if (event.target === modal) {
-    modal.style.display = "none";
-  }
-}
-
-/*************************************
- * Снег / Дождь
- *************************************/
-function togglePrecipitation() {
-  if (!currentPrecipitation) {
-    startSnow();
-  } else if (currentPrecipitation === "snow") {
-    stopPrecipitation();
-    startRain();
-  } else if (currentPrecipitation === "rain") {
-    stopPrecipitation();
-    startSnow();
-  }
-}
-
-function startSnow() {
-  currentPrecipitation = "snow";
-  spawnPrecipitation("❄");
-}
-
-function startRain() {
-  currentPrecipitation = "rain";
-  spawnPrecipitation("💧");
-}
-
-function stopPrecipitation() {
-  if (precipitationInterval) {
-    clearInterval(precipitationInterval);
-    precipitationInterval = null;
-  }
-  const container = document.getElementById("precipitationContainer");
-  if (container) container.innerHTML = "";
-  currentPrecipitation = null;
-}
-
-function spawnPrecipitation(symbol) {
-  const container = document.getElementById("precipitationContainer");
-  if (!container) return;
-
-  precipitationInterval = setInterval(() => {
-    const elem = document.createElement("div");
-    elem.textContent = symbol;
-    elem.style.position = "absolute";
-    elem.style.left = Math.random() * 100 + "%";
-    elem.style.top = "-5%";
-    elem.style.fontSize = "1.2rem";
-    elem.style.opacity = 0.9;
-
-    container.appendChild(elem);
-
-    let fallSpeed = 5 + Math.random() * 4;
-    let currentTop = -5;
-
-    const fall = setInterval(() => {
-      if (currentTop > 105) {
-        clearInterval(fall);
-        container.removeChild(elem);
-      } else {
-        currentTop += fallSpeed;
-        elem.style.top = currentTop + "%";
-      }
-    }, 50);
-  }, 100);
-}
-
-/*************************************
- * Позиционирование Сайдбара
- *************************************/
-function positionSidebarRandomly() {
-  const sidebar = document.getElementById("sidebar");
-  if (!sidebar) return;
-
-  const positions = ["top", "bottom", "left", "right"];
-  const randomPos = positions[Math.floor(Math.random() * positions.length)];
-
-  sidebar.style.top = "";
-  sidebar.style.bottom = "";
-  sidebar.style.left = "";
-  sidebar.style.right = "";
-  sidebar.style.transform = "";
-
-  switch (randomPos) {
-    case "top":
-      sidebar.style.top = "0px";
-      sidebar.style.left = "50%";
-      sidebar.style.transform = "translateX(-50%)";
-      break;
-    case "bottom":
-      sidebar.style.bottom = "0px";
-      sidebar.style.left = "50%";
-      sidebar.style.transform = "translateX(-50%)";
-      break;
-    case "left":
-      sidebar.style.left = "0px";
-      sidebar.style.top = "50%";
-      sidebar.style.transform = "translateY(-50%)";
-      break;
-    case "right":
-      sidebar.style.right = "0px";
-      sidebar.style.top = "50%";
-      sidebar.style.transform = "translateY(-50%)";
-      break;
-  }
-
-  // Перемешаем ссылки
-  const ul = sidebar.querySelector("ul");
-  for (let i = ul.children.length; i >= 0; i--) {
-    ul.appendChild(ul.children[(Math.random() * i) | 0]);
-  }
+function getRandomCity() {
+  const cities = [
+    "Москва",
+    "Самара",
+    "Новосибирск",
+    "Челябинск",
+    "Владивосток",
+    "Казань",
+    "Урюпинск",
+    "Воркута",
+  ];
+  const idx = Math.floor(Math.random() * cities.length);
+  return cities[idx];
 }
