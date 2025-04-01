@@ -1,144 +1,230 @@
-/* Сброс */
+/* ВСЁ - ПРОСЧИТАННАЯ КАТАСТРОФА */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: sans-serif;
-    position: relative;
-    min-height: 100vh;
-  }
-  
-  /* Сайдбар */
-  #sidebar {
-    position: absolute;
-    background: #ccc;
-    padding: 1rem;
-    border: 2px solid #333;
-    z-index: 1000;
-  }
-  
-  #sidebar ul {
-    list-style: none;
-  }
-  #sidebar li {
-    margin: 0.5rem 0;
-  }
-  #sidebar a {
-    text-decoration: none;
-    color: #000;
-    font-weight: bold;
-  }
-  
-  /* Шапка */
-  header {
-    background: #eee;
-    padding: 1rem;
-    border-bottom: 1px solid #333;
-  }
-  
-  header h1 {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  /* Контент */
-  main {
-    padding: 1rem;
-  }
-  
-  .info-block {
-    margin-bottom: 1rem;
-    border: 1px solid #666;
-    padding: 1rem;
-    background: #f9f9f9;
-  }
-  
-  .form-section {
-    margin: 2rem;
-  }
-  
-  /* Футер */
-  footer {
-    background: #eee;
-    padding: 1rem;
-    border-top: 1px solid #333;
-    text-align: center;
-    margin-top: 2rem;
-  }
-  
-  /* Кнопка переключения осадков */
-  #toggleSnowButton {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 1100;
-    padding: 0.5rem 1rem;
-  }
-  
-  /* Контейнер для осадков */
-  #precipitationContainer {
-    pointer-events: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: 999;
-  }
-  
-  /* Модалки */
-  .modal {
-    display: none; /* скрыта по умолчанию */
-    position: fixed;
-    z-index: 2000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.5); /* полупрозрачная подложка */
-  }
-  
-  .modal-content {
-    background-color: #fff;
-    margin: 10% auto;
-    padding: 1rem;
-    width: 80%;
-    max-width: 500px;
-    position: relative;
-    border-radius: 4px;
-  }
-  
-  .close {
-    color: #aaa;
-    font-size: 1.5rem;
-    font-weight: bold;
-    position: absolute;
-    right: 1rem;
-    top: 0.5rem;
-    cursor: pointer;
-  }
-  
-  .modal-buttons {
-    display: flex;
-    justify-content: space-evenly;
-    margin-top: 1rem;
-  }
-  
-  /* Реклама Ozon */
-  .ad-content {
-    background-color: #FFFF00; /* яркий фон рекламы */
-    text-align: center;
-    border: 3px dashed red;
-    position: relative;
-    min-height: 200px;
-    min-width: 300px;
-  }
-  .ad-close-btn {
-    /* крестик внутри рекламы */
-    color: #000;
-  }
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Comic Sans MS", "Curlz MT", fantasy;
+  text-transform: uppercase;
+  letter-spacing: 12px;
+  word-spacing: -10px;
+  text-shadow: 2px 2px 4px black;
+  color: rgb(255, 0, 128);
+  cursor: not-allowed;
+}
+
+/* ФОН, КОТОРЫЙ СЛОМАЕТ МОНИТОР */
+body {
+  background: linear-gradient(30deg, red, green, blue, yellow, purple);
+  background-size: 500% 500%;
+  background-attachment: fixed;
+  opacity: 0.9;
+}
+
+/* ЕБАНАЯ ШАПКА */
+header {
+  background: linear-gradient(to right, darkred, darkblue, darkgreen);
+  padding: 10rem;
+  text-align: center;
+  font-size: 7rem;
+  font-weight: 900;
+  border-bottom: 25px double lime;
+  text-shadow: 10px 10px 5px black;
+  position: relative;
+}
+
+/* ВОДЯНОЙ ЗНАК КРИЧИТ О БОЛИ */
+header::after {
+  content: "НЕ ВОРУЙ! НЕ ВОРУЙ! НЕ ВОРУЙ!";
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  font-size: 2.5rem;
+  color: yellow;
+  opacity: 0.8;
+  transform: rotate(-5deg);
+}
+
+/* САЙДБАР - БУКВАЛЬНО ГРАФИЧЕСКОЕ УБОЙНОЕ ОРУЖИЕ */
+#sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 400px;
+  height: 100%;
+  background: url('https://i.imgur.com/tZb5FQs.jpg'); /* какая-то бессмысленная муть */
+  background-size: 60px;
+  border-right: 15px dotted cyan;
+  text-align: center;
+  overflow-y: scroll;
+}
+
+/* ДЕШЁВЫЙ, КОНЧЕННЫЙ ДИЗАЙН ССЫЛОК */
+#sidebar a {
+  display: block;
+  padding: 25px;
+  color: yellow;
+  font-size: 4rem;
+  font-weight: bold;
+  text-shadow: 5px 5px 15px purple;
+  transition: all 0.3s ease-in-out;
+}
+
+/* ПРИ НАВЕДЕНИИ ВСЁ ВСТАЁТ РАКОМ */
+#sidebar a:hover {
+  background: yellow;
+  color: black;
+  font-size: 6rem;
+  text-decoration: wavy underline lime;
+  transform: skewX(20deg);
+}
+
+/* ОСНОВНОЙ КОНТЕНТ - ВИЗУАЛЬНЫЙ СЛОМ ПСИХИКИ */
+main {
+  padding: 80px;
+  margin-left: 400px;
+  background: repeating-linear-gradient(-30deg, pink, cyan, orange, lime);
+  color: navy;
+  font-size: 5.5rem;
+  text-shadow: 3px 3px 6px black;
+}
+
+/* АБСОЛЮТНО БЕСПОЛЕЗНЫЕ КНОПКИ */
+button {
+  background: repeating-linear-gradient(45deg, red, yellow, blue, green, purple);
+  color: white;
+  font-size: 6rem;
+  padding: 60px;
+  border: 8px solid black;
+  text-shadow: 4px 4px 4px blue;
+  transition: all 0.15s ease-in-out;
+}
+
+/* ПРИ НАВЕДЕНИИ - ПРОСТО ХАУС */
+button:hover {
+  background: white;
+  color: red;
+  border: 5px dashed black;
+  text-decoration: overline double;
+  transform: rotate(10deg);
+}
+
+/* ФУТЕР - ПРОЩАЙ, ЗДРАВЫЙ СМЫСЛ */
+footer {
+  background: conic-gradient(yellow, green, blue, red, pink);
+  text-align: center;
+  padding: 5rem;
+  font-size: 6rem;
+  font-weight: bold;
+  border-top: 20px ridge cyan;
+  text-shadow: 5px 5px 15px black;
+}
+
+/* МАРКИРОВАННЫЙ СПИСОК - ПОЧТИ ПРАВИЛЬНЫЙ, НО ОТВРАТНЫЙ */
+ul {
+  list-style: none;
+  padding-left: 50px;
+}
+
+ul li::before {
+  content: "►";
+  color: red;
+  font-size: 4rem;
+}
+
+/* МОДАЛКИ — ПРИВЕТ ИЗ 2007 */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9001; /* ОНО ВЫШЕ ВСЕГО */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(-45deg, red, blue, green, yellow);
+  opacity: 0.97;
+  text-align: center;
+  transition: all 0.5s ease-in-out;
+}
+
+/* МОДАЛОЧНЫЙ КОНТЕНТ - ЧИСТО МУКА ДЛЯ ГЛАЗ */
+.modal-content {
+  background: linear-gradient(45deg, #ff00ff, #00ffff);
+  border: 15px solid cyan;
+  margin: 8% auto;
+  padding: 50px;
+  width: 90%;
+  max-width: 800px;
+  position: relative;
+  border-radius: 50px;
+  text-shadow: 3px 3px 6px black;
+  font-family: "Comic Sans MS", "Papyrus", fantasy;
+  font-size: 3rem;
+  color: yellow;
+  transform: rotate(2deg);
+}
+
+/* КНОПКА ЗАКРЫТИЯ - БОЛЬ */
+.close {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  font-size: 5rem;
+  font-weight: bold;
+  background: red;
+  color: white;
+  padding: 20px;
+  border-radius: 50%;
+  box-shadow: 5px 5px 15px black;
+  transform: rotate(-30deg);
+  transition: all 0.3s ease-in-out;
+}
+
+/* НАВЕДЕНИЕ НА ЗАКРЫТИЕ - СТРАДАНИЕ */
+.close:hover {
+  background: yellow;
+  color: black;
+  transform: scale(1.2) rotate(0deg);
+  text-shadow: 4px 4px 10px red;
+}
+
+/* КНОПКИ ВНУТРИ - ВИЗУАЛЬНЫЙ ТЕРРОР */
+.modal-buttons {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 50px;
+}
+
+.modal-buttons button {
+  font-size: 4rem;
+  font-weight: bold;
+  background: linear-gradient(-45deg, pink, orange, lime, cyan);
+  color: black;
+  padding: 30px 50px;
+  border: 10px dashed purple;
+  text-shadow: 2px 2px 4px red;
+  transition: all 0.2s ease-in-out;
+  transform: skewX(-15deg);
+}
+
+/* НАВЕДЕНИЕ НА КНОПКИ - АТАКА ЭСТЕТИКИ */
+.modal-buttons button:hover {
+  background: black;
+  color: lime;
+  border: 5px double yellow;
+  text-shadow: 6px 6px 15px white;
+  transform: skewX(0deg) scale(1.2);
+}
+
+/* БРОДЯЩИЕ АНИМАЦИОННЫЕ ОБЪЕКТЫ */
+@keyframes flyingStuff {
+  0% { transform: translate(-10px, -10px) rotate(0deg); }
+  50% { transform: translate(10px, 10px) rotate(10deg); }
+  100% { transform: translate(-10px, -10px) rotate(0deg); }
+}
+
+.modal-content,
+.modal-buttons button,
+.close {
+  animation: flyingStuff 1.5s infinite alternate ease-in-out;
+}
