@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <title>Погодное приложение</title>
     <link rel="stylesheet" href="styles.css" />
-    <script defer src="script.js"></script>
+    <!-- Подключаем отдельный скрипт для погоды -->
+    <script defer src="weather.js"></script>
   </head>
   <body onload="initializeWeatherPage()">
     <!-- Сайдбар -->
@@ -17,6 +18,7 @@
       </ul>
     </nav>
 
+    <!-- Кнопка переключения снега -->
     <button id="toggleSnowButton" onclick="togglePrecipitation()">
       Сменить статус снега
     </button>
@@ -26,19 +28,30 @@
     </header>
 
     <main>
+      <!-- Основная логика "проверить город" -->
       <section class="info-block" id="weatherBlock">
         <h2>Случайный город</h2>
         <p><strong>Текущий город:</strong> <span id="currentCity"></span></p>
         <p><strong>Погода:</strong> <span id="currentWeather">???</span></p>
+
+        <!-- Случайная картинка (из media/1.jpg..7.jpg) -->
         <img
           id="weatherImage"
           src=""
           alt="Погода"
           style="max-width: 200px; display: block; margin: 1rem 0"
         />
+
         <button onclick="startCityCheck()">Проверить город и погоду</button>
+
+        <!-- Кнопка для запроса погоды с сервера -->
+        <button onclick="fetchServerWeather()">
+          Получить погоду (с сервера)
+        </button>
+        <pre id="serverWeatherInfo">(Пока ничего)</pre>
       </section>
 
+      <!-- Пример CRUD/выгрузки БД -->
       <section class="info-block" id="crudBlock">
         <h2>CRUD Пользователи (фейк)</h2>
         <p>Таблица пользователей:</p>
@@ -51,6 +64,7 @@
       <p>© 2025 БЕЗУМ hack — Weather Page</p>
     </footer>
 
+    <!-- Контейнер для снега/дождя -->
     <div id="precipitationContainer"></div>
 
     <!-- Модалки -->
