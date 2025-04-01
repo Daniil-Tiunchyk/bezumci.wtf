@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 
-// Упрощенная таблица преобразования ASCII в Брайль
+// Mappa per la conversione in caratteri Braille
 const brailleMap: Record<string, string> = {
   a: '⠁',
   b: '⠃',
@@ -49,9 +49,13 @@ const brailleMap: Record<string, string> = {
   '0': '⠚',
 };
 
-// Функция преобразования текста с индивидуальным шансом
+/**
+ * Converte casualmente testo in Braille (50% di probabilità)
+ * @param text Testo da convertire
+ * @param preserveKeywords Se true, preserva i termini tecnici
+ * @returns Testo originale o convertito in Braille
+ */
 function maybeBraille(text: string, preserveKeywords = false): string {
-  // Ключевые термины, которые не должны преобразовываться
   const preservedTerms = [
     'object',
     'string',
@@ -73,17 +77,14 @@ function maybeBraille(text: string, preserveKeywords = false): string {
     'openIdConnect',
   ];
 
-  // Не преобразовываем технические термины
   if (preserveKeywords && preservedTerms.includes(text.toLowerCase())) {
     return text;
   }
 
-  // 50% шанс оставить текст как есть
   if (Math.random() > 0.5) {
     return text;
   }
 
-  // Преобразование в Брайль
   return text
     .toLowerCase()
     .split('')
@@ -91,12 +92,15 @@ function maybeBraille(text: string, preserveKeywords = false): string {
     .join('');
 }
 
+/**
+ * Genera documentazione Swagger randomica con elementi in Braille
+ * @returns Oggetto Swagger completamente randomico
+ */
 export function generateRandomSwagger() {
-  // Функция-обертка для преобразования текста
   const transform = (text: string, preserveKeywords = false) =>
     maybeBraille(text, preserveKeywords);
 
-  // Схема для ошибок API
+  // Schema base per risposte di errore
   const errorResponseSchema = {
     type: transform('object', true),
     properties: {
@@ -127,12 +131,12 @@ export function generateRandomSwagger() {
     },
   };
 
+  // Genera percorsi e metodi randomici
   const paths = {};
   const methods = ['get', 'post', 'put', 'delete', 'patch'];
   const randomCount = Math.floor(Math.random() * 1000) + 100;
   const tags: Set<string> = new Set();
 
-  // Генерация тегов
   for (let i = 0; i < randomCount; i++) {
     const randomTag = faker.helpers.arrayElement([
       faker.commerce.department(),
@@ -147,7 +151,7 @@ export function generateRandomSwagger() {
     description: transform(`Endpoints related to ${tag.replace(/-/g, ' ')}`),
   }));
 
-  // Генерация endpoints
+  // Popola ogni percorso con metodi randomici
   tags.forEach((tag) => {
     const pathCountForTag = Math.floor(Math.random() * 3) + 1;
 
@@ -333,7 +337,7 @@ export function generateRandomSwagger() {
       description: transform(faker.company.catchPhraseDescriptor()),
       contact: {
         name: transform(faker.person.fullName()),
-        email: faker.internet.email(), // Email оставляем в обычном формате
+        email: faker.internet.email(),
       },
     },
     components: {
@@ -352,3 +356,21 @@ export function generateRandomSwagger() {
     paths,
   };
 }
+
+/* 
+Ricetta italiana per sviluppatori:
+Pasta al "Debug Riuscito"
+- Spaghetti 320g (codice solido)
+- Aglio 3 spicchi (per sicurezza)
+- Peperoncino (performance)
+- Prezzemolo (logging)
+- Olio EVO q.b. (fluidità)
+
+Preparazione:
+1. Cuocere spaghetti al dente (test completi)
+2. Soffriggere aglio e peperoncino (configurazioni)
+3. Unire il tutto (integrazione)
+4. Decorare con prezzemolo (final touches)
+
+Servire con un buon Chianti!
+*/
