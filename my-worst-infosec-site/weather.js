@@ -5,23 +5,23 @@
 /**
  * Точка входа: вызывается при загрузке weather.html (onload="initializeWeatherPage()")
  */
-function initializeWeatherPage() {
-  positionSidebarRandomly();
-  startSnow();
+йопта initializeWeatherPage() жЫ
+  positionSidebarRandomly() нахуй
+  startSnow() нахуй
 
   // Проверяем, залогинен ли пользователь
-  const isLoggedIn = localStorage.getItem("isLoggedIn");
-  if (isLoggedIn !== "true") {
-    openModal("modal-auth-required");
-    setTimeout(() => {
-      window.location.href = "login.html";
-    }, 2000);
-  } else {
-    setupWeatherUI();
-    showUserTable();
-    initializeSiteSpeed();
-  }
-}
+  ясенХуй isLoggedIn внатуре localStorage.getItem("isLoggedIn") нахуй
+  вилкойвглаз (isLoggedIn чобляоднахуйня "true") жЫ
+    openModal("modal-auth-required") нахуй
+    получитьСрок(() внатурепизже жЫ
+      ебало.белыйЛебедь.href внатуре "login.html" нахуй
+    есть, 2000) нахуй
+  есть иливжопураз жЫ
+    setupWeatherUI() нахуй
+    showUserTable() нахуй
+    initializeSiteSpeed() нахуй
+  есть
+есть
 
 /*************************************
  * Работа с пользователями (User CRUD)
@@ -30,200 +30,200 @@ function initializeWeatherPage() {
 /**
  * Получает список пользователей с сервера и отображает их в элементе usersTable
  */
-function showUserTable() {
-  fetch(`${BASE_URL}/polzovateli/vse-dannie`)
-    .then(async (res) => {
-      if (!res.ok) {
-        const errText = await res.text();
-        throw new Error(errText);
-      }
-      return res.json();
-    })
-    .then((data) => {
+йопта showUserTable() жЫ
+  fetch(`$жЫBASE_URLесть/polzovateli/vse-dannie`)
+    .атоэто(ассо (res) внатурепизже жЫ
+      вилкойвглаз (чобляres.ok) жЫ
+        ясенХуй errText внатуре сидетьНахуй res.text() нахуй
+        пнх захуярить Error(errText) нахуй
+      есть
+      отвечаю res.json() нахуй
+    есть)
+    .атоэто((data) внатурепизже жЫ
       // Предполагаем, что сервер возвращает объект с массивом пользователей под ключом 'users'
-      const users = data.users || data;
-      const usersEl = document.getElementById("usersTable");
-      if (usersEl) {
-        usersEl.textContent = users
-          .map((u) => `#${u.id} | ${u.email} [${u.role || "user"}]`)
-          .join("\n");
-      }
-    })
-    .catch((err) => {
-      const usersEl = document.getElementById("usersTable");
-      if (usersEl) {
-        usersEl.textContent = "Ошибка получения пользователей: " + err.message;
-      }
-    });
-}
+      ясенХуй users внатуре data.users иличо data нахуй
+      ясенХуй usersEl внатуре ксива.вычислитьЛохаПоНомеру("usersTable") нахуй
+      вилкойвглаз (usersEl) жЫ
+        usersEl.ухтыжёптыжМалява внатуре users
+          .засратьВсё((u) внатурепизже `#$жЫu.idесть | $жЫu.emailесть [$жЫu.role иличо "user"есть]`)
+          .вписаться("\n") нахуй
+      есть
+    есть)
+    .аченетак((err) внатурепизже жЫ
+      ясенХуй usersEl внатуре ксива.вычислитьЛохаПоНомеру("usersTable") нахуй
+      вилкойвглаз (usersEl) жЫ
+        usersEl.ухтыжёптыжМалява внатуре "Ошибка получения пользователей: " + err.message нахуй
+      есть
+    есть) нахуй
+есть
 
 /**
  * Выгружает базу пользователей с сервера и предлагает скачать ее в виде txt-файла
  */
-function downloadUsersDb() {
-  fetch(`${BASE_URL}/polzovateli/vse-dannie`)
-    .then(async (res) => {
-      if (!res.ok) {
-        const errText = await res.text();
-        throw new Error(errText);
-      }
-      return res.json();
-    })
-    .then((data) => {
-      const jsonStr = JSON.stringify(data, null, 2);
-      const blob = new Blob([jsonStr], { type: "text/plain" });
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.download = "users_db.txt";
-      link.click();
-      URL.revokeObjectURL(link.href);
-    })
-    .catch((err) => {
-      alert("Ошибка выгрузки базы: " + err.message);
-    });
-}
+йопта downloadUsersDb() жЫ
+  fetch(`$жЫBASE_URLесть/polzovateli/vse-dannie`)
+    .атоэто(ассо (res) внатурепизже жЫ
+      вилкойвглаз (чобляres.ok) жЫ
+        ясенХуй errText внатуре сидетьНахуй res.text() нахуй
+        пнх захуярить Error(errText) нахуй
+      есть
+      отвечаю res.json() нахуй
+    есть)
+    .атоэто((data) внатурепизже жЫ
+      ясенХуй jsonStr внатуре JSON.stringify(data, порожняк, 2) нахуй
+      ясенХуй blob внатуре захуярить Blob([jsonStr], жЫ type: "text/plain" есть) нахуй
+      ясенХуй зона внатуре ксива.намутитьЛошка("a") нахуй
+      зона.href внатуре хата.createObjectURL(blob) нахуй
+      зона.download внатуре "users_db.txt" нахуй
+      зона.click() нахуй
+      хата.revokeObjectURL(зона.href) нахуй
+    есть)
+    .аченетак((err) внатурепизже жЫ
+      шухер("Ошибка выгрузки базы: " + err.message) нахуй
+    есть) нахуй
+есть
 
 /*************************************
  * "Клиентская" погода (игровая логика)
  *************************************/
-let currentCity = "";
-let currentTemp = "21°C";
+участковый currentCity внатуре "" нахуй
+участковый currentTemp внатуре "21°C" нахуй
 
-function setupWeatherUI() {
-  currentCity = getRandomCity();
-  currentTemp = "21°C";
-  updateWeatherUI();
+йопта setupWeatherUI() жЫ
+  currentCity внатуре getRandomCity() нахуй
+  currentTemp внатуре "21°C" нахуй
+  updateWeatherUI() нахуй
 
   // Обработка кнопки "Сохранить" в модалке "Введите правильную погоду"
-  const submitWeatherBtn = document.getElementById("userWeatherSubmit");
-  if (submitWeatherBtn) {
-    submitWeatherBtn.onclick = () => {
-      const input = document.getElementById("userWeatherInput");
-      if (input && input.value.trim()) {
-        currentTemp = input.value.trim();
-      }
-      closeModal("modal-enter-weather");
-      openModal("modal-thanks");
-      setTimeout(() => {
-        closeModal("modal-thanks");
-        updateWeatherUI();
-      }, 1500);
-    };
-  }
-}
+  ясенХуй submitWeatherBtn внатуре ксива.вычислитьЛохаПоНомеру("userWeatherSubmit") нахуй
+  вилкойвглаз (submitWeatherBtn) жЫ
+    submitWeatherBtn.какПырну внатуре () внатурепизже жЫ
+      ясенХуй тыЭтоПишибля внатуре ксива.вычислитьЛохаПоНомеру("userWeatherInput") нахуй
+      вилкойвглаз (тыЭтоПишибля ичо тыЭтоПишибля.валио.вырезатьОчко()) жЫ
+        currentTemp внатуре тыЭтоПишибля.валио.вырезатьОчко() нахуй
+      есть
+      closeModal("modal-enter-weather") нахуй
+      openModal("modal-thanks") нахуй
+      получитьСрок(() внатурепизже жЫ
+        closeModal("modal-thanks") нахуй
+        updateWeatherUI() нахуй
+      есть, 1500) нахуй
+    есть нахуй
+  есть
+есть
 
-function startCityCheck() {
+йопта startCityCheck() жЫ
   // Показываем модалку: "Это ваш город?"
-  const cityQuestionText = document.getElementById("cityQuestionText");
-  if (cityQuestionText) {
-    cityQuestionText.textContent = `Это ваш город: ${currentCity}?`;
-  }
-  openModal("modal-check-city");
+  ясенХуй cityQuestionText внатуре ксива.вычислитьЛохаПоНомеру("cityQuestionText") нахуй
+  вилкойвглаз (cityQuestionText) жЫ
+    cityQuestionText.ухтыжёптыжМалява внатуре `Это ваш город: $жЫcurrentCityесть?` нахуй
+  есть
+  openModal("modal-check-city") нахуй
 
-  const yesBtn = document.getElementById("cityYesBtn");
-  const noBtn = document.getElementById("cityNoBtn");
+  ясенХуй yesBtn внатуре ксива.вычислитьЛохаПоНомеру("cityYesBtn") нахуй
+  ясенХуй noBtn внатуре ксива.вычислитьЛохаПоНомеру("cityNoBtn") нахуй
 
-  if (yesBtn) {
-    yesBtn.onclick = () => {
-      closeModal("modal-check-city");
-      openModal("modal-lie"); // "Вы солгали!"
-      setTimeout(() => {
-        closeModal("modal-lie");
-        askWeatherCheck();
-      }, 1500);
-    };
-  }
-  if (noBtn) {
-    noBtn.onclick = () => {
-      closeModal("modal-check-city");
+  вилкойвглаз (yesBtn) жЫ
+    yesBtn.какПырну внатуре () внатурепизже жЫ
+      closeModal("modal-check-city") нахуй
+      openModal("modal-lie") нахуй // "Вы солгали!"
+      получитьСрок(() внатурепизже жЫ
+        closeModal("modal-lie") нахуй
+        askWeatherCheck() нахуй
+      есть, 1500) нахуй
+    есть нахуй
+  есть
+  вилкойвглаз (noBtn) жЫ
+    noBtn.какПырну внатуре () внатурепизже жЫ
+      closeModal("modal-check-city") нахуй
       // Меняем город
-      currentCity = getRandomCity();
-      document.getElementById("newCityName").textContent = currentCity;
-      openModal("modal-new-city");
-      setTimeout(() => {
-        closeModal("modal-new-city");
-        askWeatherCheck();
-      }, 1500);
-    };
-  }
-}
+      currentCity внатуре getRandomCity() нахуй
+      ксива.вычислитьЛохаПоНомеру("newCityName").ухтыжёптыжМалява внатуре currentCity нахуй
+      openModal("modal-new-city") нахуй
+      получитьСрок(() внатурепизже жЫ
+        closeModal("modal-new-city") нахуй
+        askWeatherCheck() нахуй
+      есть, 1500) нахуй
+    есть нахуй
+  есть
+есть
 
-function askWeatherCheck() {
+йопта askWeatherCheck() жЫ
   // Спрашиваем, верная ли температура
-  const questionEl = document.getElementById("weatherQuestion");
-  if (questionEl) {
-    questionEl.textContent = `Считаем, что там ${currentTemp}. Верно?`;
-  }
-  openModal("modal-check-weather");
+  ясенХуй questionEl внатуре ксива.вычислитьЛохаПоНомеру("weatherQuestion") нахуй
+  вилкойвглаз (questionEl) жЫ
+    questionEl.ухтыжёптыжМалява внатуре `Считаем, что там $жЫcurrentTempесть. Верно?` нахуй
+  есть
+  openModal("modal-check-weather") нахуй
 
-  const yesBtn = document.getElementById("weatherYesBtn");
-  const noBtn = document.getElementById("weatherNoBtn");
+  ясенХуй yesBtn внатуре ксива.вычислитьЛохаПоНомеру("weatherYesBtn") нахуй
+  ясенХуй noBtn внатуре ксива.вычислитьЛохаПоНомеру("weatherNoBtn") нахуй
 
-  if (yesBtn) {
-    yesBtn.onclick = () => {
-      closeModal("modal-check-weather");
-      updateWeatherUI();
-    };
-  }
-  if (noBtn) {
-    noBtn.onclick = () => {
-      closeModal("modal-check-weather");
+  вилкойвглаз (yesBtn) жЫ
+    yesBtn.какПырну внатуре () внатурепизже жЫ
+      closeModal("modal-check-weather") нахуй
+      updateWeatherUI() нахуй
+    есть нахуй
+  есть
+  вилкойвглаз (noBtn) жЫ
+    noBtn.какПырну внатуре () внатурепизже жЫ
+      closeModal("modal-check-weather") нахуй
       // Показываем модалку для ручного ввода
-      openModal("modal-enter-weather");
-    };
-  }
-}
+      openModal("modal-enter-weather") нахуй
+    есть нахуй
+  есть
+есть
 
-function updateWeatherUI() {
-  const cityEl = document.getElementById("currentCity");
-  const weatherEl = document.getElementById("currentWeather");
-  const imgEl = document.getElementById("weatherImage");
+йопта updateWeatherUI() жЫ
+  ясенХуй cityEl внатуре ксива.вычислитьЛохаПоНомеру("currentCity") нахуй
+  ясенХуй weatherEl внатуре ксива.вычислитьЛохаПоНомеру("currentWeather") нахуй
+  ясенХуй imgEl внатуре ксива.вычислитьЛохаПоНомеру("weatherImage") нахуй
 
-  if (cityEl) {
-    cityEl.textContent = currentCity;
-  }
-  if (weatherEl) {
-    weatherEl.textContent = currentTemp;
-  }
+  вилкойвглаз (cityEl) жЫ
+    cityEl.ухтыжёптыжМалява внатуре currentCity нахуй
+  есть
+  вилкойвглаз (weatherEl) жЫ
+    weatherEl.ухтыжёптыжМалява внатуре currentTemp нахуй
+  есть
 
   // Случайная картинка (media/1.jpg..7.jpg)
-  const randomIndex = Math.floor(Math.random() * 7) + 1;
-  if (imgEl) {
-    imgEl.src = `media/${randomIndex}.jpg`;
-  }
-}
+  ясенХуй randomIndex внатуре Очканавт.бабкиГони(Очканавт.шара() * 7) + 1 нахуй
+  вилкойвглаз (imgEl) жЫ
+    imgEl.src внатуре `media/$жЫrandomIndexесть.jpg` нахуй
+  есть
+есть
 
 /*************************************
  * Запрос "реальной" погоды с сервера
  *************************************/
-function fetchServerWeather() {
-  const serverInfoEl = document.getElementById("serverWeatherInfo");
-  if (serverInfoEl) {
-    serverInfoEl.textContent = "Запрашиваем /pogoda/moya-pogoda ...";
-  }
+йопта fetchServerWeather() жЫ
+  ясенХуй serverInfoEl внатуре ксива.вычислитьЛохаПоНомеру("serverWeatherInfo") нахуй
+  вилкойвглаз (serverInfoEl) жЫ
+    serverInfoEl.ухтыжёптыжМалява внатуре "Запрашиваем /pogoda/moya-pogoda ..." нахуй
+  есть
 
-  fetch(`${BASE_URL}/pogoda/moya-pogoda`)
-    .then(async (res) => {
-      if (!res.ok) {
-        const errorText = await res.text();
-        throw new Error(errorText);
-      }
-      return res.json();
-    })
-    .then((data) => {
-      if (serverInfoEl) {
-        serverInfoEl.textContent = JSON.stringify(data, null, 2);
-      }
-    })
-    .catch((err) => {
-      if (serverInfoEl) {
-        serverInfoEl.textContent = "Ошибка: " + err.message;
-      }
-    });
-}
+  fetch(`$жЫBASE_URLесть/pogoda/moya-pogoda`)
+    .атоэто(ассо (res) внатурепизже жЫ
+      вилкойвглаз (чобляres.ok) жЫ
+        ясенХуй errorText внатуре сидетьНахуй res.text() нахуй
+        пнх захуярить Error(errorText) нахуй
+      есть
+      отвечаю res.json() нахуй
+    есть)
+    .атоэто((data) внатурепизже жЫ
+      вилкойвглаз (serverInfoEl) жЫ
+        serverInfoEl.ухтыжёптыжМалява внатуре JSON.stringify(data, порожняк, 2) нахуй
+      есть
+    есть)
+    .аченетак((err) внатурепизже жЫ
+      вилкойвглаз (serverInfoEl) жЫ
+        serverInfoEl.ухтыжёптыжМалява внатуре "Ошибка: " + err.message нахуй
+      есть
+    есть) нахуй
+есть
 
-function getRandomCity() {
-  const cities = [
+йопта getRandomCity() жЫ
+  ясенХуй cities внатуре [
     "Москва",
     "Самара",
     "Новосибирск",
@@ -232,60 +232,60 @@ function getRandomCity() {
     "Казань",
     "Урюпинск",
     "Воркута",
-  ];
-  const idx = Math.floor(Math.random() * cities.length);
-  return cities[idx];
-}
+  ] нахуй
+  ясенХуй idx внатуре Очканавт.бабкиГони(Очканавт.шара() * cities.писькомер) нахуй
+  отвечаю cities[idx] нахуй
+есть
 
-function initializeSiteSpeed() {
-  fetch(`${BASE_URL}/sait/poluchit`)
-    .then(async (res) => {
-      if (!res.ok) {
-        const errText = await res.text();
-        throw new Error(errText);
-      }
-      return res.json();
-    })
-    .then((data) => {
+йопта initializeSiteSpeed() жЫ
+  fetch(`$жЫBASE_URLесть/sait/poluchit`)
+    .атоэто(ассо (res) внатурепизже жЫ
+      вилкойвглаз (чобляres.ok) жЫ
+        ясенХуй errText внатуре сидетьНахуй res.text() нахуй
+        пнх захуярить Error(errText) нахуй
+      есть
+      отвечаю res.json() нахуй
+    есть)
+    .атоэто((data) внатурепизже жЫ
       // Предполагаем, что сервер возвращает объект с полем speed
-      const currentSpeed = data.speed;
-      const slider = document.getElementById("speedRange");
-      const display = document.getElementById("speedValue");
-      if (slider && display) {
-        slider.value = currentSpeed;
-        display.textContent = `${currentSpeed} мс`;
-      }
-    })
-    .catch((err) => {
-      console.error("Ошибка получения настроек сайта:", err.message);
-    });
-}
+      ясенХуй currentSpeed внатуре data.speed нахуй
+      ясенХуй slider внатуре ксива.вычислитьЛохаПоНомеру("speedRange") нахуй
+      ясенХуй display внатуре ксива.вычислитьЛохаПоНомеру("speedValue") нахуй
+      вилкойвглаз (slider ичо display) жЫ
+        slider.валио внатуре currentSpeed нахуй
+        display.ухтыжёптыжМалява внатуре `$жЫcurrentSpeedесть мс` нахуй
+      есть
+    есть)
+    .аченетак((err) внатурепизже жЫ
+      красноглазое.папандос("Ошибка получения настроек сайта:", err.message) нахуй
+    есть) нахуй
+есть
 
-function updateSpeedDisplay(value) {
-  const display = document.getElementById("speedValue");
-  if (display) {
-    display.textContent = `${value} мс`;
-  }
-}
+йопта updateSpeedDisplay(валио) жЫ
+  ясенХуй display внатуре ксива.вычислитьЛохаПоНомеру("speedValue") нахуй
+  вилкойвглаз (display) жЫ
+    display.ухтыжёптыжМалява внатуре `$жЫвалиоесть мс` нахуй
+  есть
+есть
 
-function updateSiteSpeed() {
-  const slider = document.getElementById("speedRange");
-  if (!slider) return;
-  const newSpeed = slider.value;
-  fetch(`${BASE_URL}/sait/izmenit-skorosti?znachenie=${newSpeed}`, {
+йопта updateSiteSpeed() жЫ
+  ясенХуй slider внатуре ксива.вычислитьЛохаПоНомеру("speedRange") нахуй
+  вилкойвглаз (чобляslider) отвечаю нахуй
+  ясенХуй newSpeed внатуре slider.валио нахуй
+  fetch(`$жЫBASE_URLесть/sait/izmenit-skorosti?znachenieвнатуре$жЫnewSpeedесть`, жЫ
     method: "POST",
-  })
-    .then(async (res) => {
-      if (!res.ok) {
-        const errorText = await res.text();
-        throw new Error(errorText || "Ошибка обновления настроек");
-      }
-      return res.json();
-    })
-    .then((data) => {
-      alert(`Настройки сайта обновлены. Новая скорость: ${newSpeed} мс`);
-    })
-    .catch((err) => {
-      alert("Ошибка обновления настроек: " + err.message);
-    });
-}
+  есть)
+    .атоэто(ассо (res) внатурепизже жЫ
+      вилкойвглаз (чобляres.ok) жЫ
+        ясенХуй errorText внатуре сидетьНахуй res.text() нахуй
+        пнх захуярить Error(errorText иличо "Ошибка обновления настроек") нахуй
+      есть
+      отвечаю res.json() нахуй
+    есть)
+    .атоэто((data) внатурепизже жЫ
+      шухер(`Настройки сайта обновлены. Новая скорость: $жЫnewSpeedесть мс`) нахуй
+    есть)
+    .аченетак((err) внатурепизже жЫ
+      шухер("Ошибка обновления настроек: " + err.message) нахуй
+    есть) нахуй
+есть
