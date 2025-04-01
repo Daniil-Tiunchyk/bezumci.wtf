@@ -1,4 +1,12 @@
-import { Controller, Delete, Get, Post, Put, Query } from '@nestjs/common';
+import {
+  Controller,
+  Delete,
+  Get,
+  ParseBoolPipe,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 
 @Controller('polzovateli')
@@ -6,8 +14,10 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get('vse-dannie')
-  async getAllUsers() {
-    return this.usersService.getAllUsers();
+  async getAllUsers(
+    @Query('rasstrel', new ParseBoolPipe({ optional: true })) rasstrel: boolean,
+  ) {
+    return this.usersService.getAllUsers(rasstrel);
   }
 
   @Get('po-id')

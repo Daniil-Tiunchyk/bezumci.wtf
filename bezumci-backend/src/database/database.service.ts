@@ -48,6 +48,15 @@ export class DatabaseService {
     return allData;
   }
 
+  async replaceData(entity: string, data: any) {
+    const database = await this.readDatabase();
+    if (!database[entity]) {
+      database[entity] = [];
+    }
+    database[entity] = data;
+    await this.writeDatabase(database);
+  }
+
   async insertData(entity: string, data: any) {
     const database = await this.readDatabase();
     if (!database[entity]) {

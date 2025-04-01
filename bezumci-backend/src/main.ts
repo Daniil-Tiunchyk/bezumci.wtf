@@ -7,6 +7,7 @@ import { generateRandomSwagger } from './swagger-generator';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors();
   const httpAdapter = app.getHttpAdapter();
   const expressApp = httpAdapter.getInstance();
 

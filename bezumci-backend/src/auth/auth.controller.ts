@@ -13,7 +13,7 @@ export class AuthController {
     return this.authService.login(email, password);
   }
 
-  @Get('zaregastrirovatsya')
+  @Get('zaregistrirovatsya')
   async register(
     @Query('email') email: string,
     @Query('password') password: string,
